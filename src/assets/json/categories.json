@@ -1,0 +1,62 @@
+[
+    {
+        "name":"festas",
+        "label":"Festas e decoração",
+        "img_name":"1.webp"
+    },
+    {
+        "name":"confeitaria",
+        "label":"Confeitaria",
+        "img_name":"2.webp"
+    },
+    {
+        "name":"costura",
+        "label":"Corte e costura",
+        "img_name":"3.webp"
+    },
+    {
+        "name":"consultoria",
+        "label":"Consultoria e assessoria",
+        "img_name":"4.webp"
+    },
+    {
+        "name":"moda",
+        "label":"Moda e vestuário",
+        "img_name":"5.webp"
+    },
+    {
+        "name":"estetica",
+        "label":"Estética",
+        "img_name":"6.webp"
+    },
+    {
+        "name":"reparos",
+        "label":"Reparos domésticos",
+        "img_name":"7.webp"
+    },
+    {
+        "name":"limpeza",
+        "label":"Limpeza",
+        "img_name":"8.webp"
+    },
+    {
+        "name":"digital",
+        "label":"Serviços digitais",
+        "img_name":"9.webp"
+    },
+    {
+        "name":"arquitetura",
+        "label":"Arquitetura",
+        "img_name":"10.webp"
+    },
+    {
+        "name":"saude",
+        "label":"Saúde",
+        "img_name":"11.webp"
+    },
+    {
+        "name":"educacao",
+        "label":"Educação",
+        "img_name":"12.webp"
+    }
+]

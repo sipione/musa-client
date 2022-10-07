@@ -1,0 +1,62 @@
+
+        <RegisterContainer>
+            <RegisterInputsBox>
+                <h1 className="title">Registre-se</h1>
+                <BoxInputLabelDiv>
+                    <label htmlFor="zipcode">
+                        zipcode: 
+                    </label>
+                    
+                    <input id="zipcode" onBlur={getLocation}/>
+                </BoxInputLabelDiv>
+
+                <BoxInputLabelDiv>
+                    <label htmlFor="name">
+                        Nome: 
+                    </label>
+                    
+                    <input id="name" onChange={(event)=>setInputs({...inputs, name:event.target.value})}/>
+                </BoxInputLabelDiv>
+                <BoxInputLabelDiv>
+                    <label htmlFor="email">
+                        email: 
+                    </label>
+                   
+                    <input id="email" onChange={(event)=>setInputs({...inputs, email:event.target.value})}/>
+                </BoxInputLabelDiv>
+                <BoxInputLabelDiv>
+                    <label htmlFor="password">
+                        Senha: 
+                    </label>
+                    
+                    <input id="password" onChange={(event)=>setInputs({...inputs, password:event.target.value})}/>
+                </BoxInputLabelDiv>
+
+                <BoxInputLabelDiv>
+                    <label htmlFor="mother">
+                        mother: 
+                    </label>
+                    
+                    <input id="mother" onChange={(event)=>setInputs({...inputs, mother: event.target.value})}/>
+                </BoxInputLabelDiv>
+
+
+                <BoxInputLabelDiv>
+                    <label htmlFor="city">
+                        city: 
+                    </label>
+                    
+                    <input id="city" defaultValue= {inputs.city} readOnly/>
+                </BoxInputLabelDiv>
+
+                <BoxInputLabelDiv>
+                    <label htmlFor="state">
+                        state: 
+                    </label>
+                    
+                    <input id="state" defaultValue= {inputs.state} readOnly/>
+                </BoxInputLabelDiv>
+
+                <button onClick={makeRegister}>Registrar</button>
+            </RegisterInputsBox>
+        </RegisterContainer>
