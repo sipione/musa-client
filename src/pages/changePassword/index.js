@@ -13,7 +13,7 @@ const ChangePasswordPage = ()=>{
         try{
             const response = await axios.request({
                 method: "post",
-                url: `http://localhost:8080/api/changepass`,
+                url: `${process.env.REACT_APP_BASE_URL}/api/changepass`,
                 data: {
                     token,
                     newPassword: event.target.newPass.value

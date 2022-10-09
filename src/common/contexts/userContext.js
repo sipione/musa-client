@@ -27,7 +27,7 @@ const UserContextPrivider = ({children})=>{
         try{
             const response = await axios.request({
                 method: 'get',
-                url: `http://localhost:8080/api/users`,
+                url: `${process.env.REACT_APP_BASE_URL}/users`,
                 headers
             });
             return(response.data);
@@ -51,7 +51,7 @@ const UserContextPrivider = ({children})=>{
         try{
             const total = await axios.request({
                 method: "get",
-                url: `http://localhost:8080/api/users/total`
+                url: `${process.env.REACT_APP_BASE_URL}/users/total`
             })
             setTotal(total);
         }catch(err){

@@ -67,7 +67,7 @@ const PageLogin = ()=> {
         try{
             await axios.request({
                 method: "post",
-                url: `http://localhost:8080/api/forgotpass`,
+                url: `${process.env.REACT_APP_BASE_URL}/forgotpass`,
                 data: {email: event.target.dory.value}
             })
 
