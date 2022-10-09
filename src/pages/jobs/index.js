@@ -8,15 +8,16 @@ import { CategoryContext } from "../../common/contexts/categoryContext";
 import { UserContext } from "../../common/contexts/userContext";
 import { ImagesContext } from "../../common/contexts/imagesContext";
 import { Link } from "react-router-dom";
+import LoadingComponent from "../../components/loading";
 
 const PageJobs = ()=> {
-    const [users, setUsers] = useState(usersJson);
     const [hidden, setHidden] = useState(true);
     const {categories, categorySelected, setCategorySelected} = useContext(CategoryContext);
-    const {userLoged, professionals} = useContext(UserContext);
+    const {userLoged, getUsers, professionals} = useContext(UserContext);
     const {allImages} = useContext(ImagesContext);
-    const [filteredItems, setFilteredItems] = useState(null)
-    
+    const [page, setPage] = useState(0);
+    const [customProfessionals, setCustomProfessionals] = useState(null)
+
     useEffect(()=>{
         window.scrollTo({
             top: 0,
@@ -24,13 +25,25 @@ const PageJobs = ()=> {
             behavior: 'smooth'
         });
 
-        categorySelected 
-        ? setFilteredItems([...professionals.filter(user=>user.category == categorySelected.name)])  
-        : setFilteredItems([...professionals]);
+        setCustomProfessionals(professionals)
+    }, [professionals]);
 
-    }, [categorySelected, professionals])
+    useEffect(()=>{
+        handleCustomProfessionals()
 
-    if(!filteredItems || !allImages) return <h1>Loading...</h1>
+    }, [page, categorySelected])
+
+    const handleCustomProfessionals = async ()=>{
+        
+        try{
+            const result = await getUsers(page, categorySelected.name);
+            setCustomProfessionals(result);
+        }catch(err){
+            console.log(err.response.data)
+        }
+    }
+
+    if(!customProfessionals || !allImages) return <LoadingComponent/>
 
     return(
         <JobsContainer>
@@ -58,7 +71,7 @@ const PageJobs = ()=> {
             </JobsFilterBox>
 
             <JobsOffersBox>
-                {filteredItems.map(user=>{
+                {customProfessionals.map(user=>{
                     var userAvatar = "";
                     allImages.map(img=>img.user_id == user.id && img.role == "avatar" ? userAvatar = img.name : null)
                     

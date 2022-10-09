@@ -5,8 +5,16 @@ import { BodyText, TitleH3 } from "../../common/foundation/typography";
 import {ReactComponent as Instagram} from "../../assets/images/instagram.svg";
 import {ReactComponent as Facebook} from "../../assets/images/facebook.svg";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { UserContext } from "../../common/contexts/userContext";
 
 const FooterComponent = ()=>{
+    const {userLoged} = useContext(UserContext);
+
+    const logout = ()=>{
+        window.sessionStorage.clear();
+        window.location.reload();
+    }
 
     return (
         <FooterContainer>
@@ -55,6 +63,12 @@ const FooterComponent = ()=>{
                         <Facebook className="icon-div__svg"/>
                         <Instagram className="icon-div__svg"/>
                     </div>
+                    
+                    {
+                    userLoged
+                        ? <BodyText className="logout" onClick={logout} >Logout</BodyText>
+                        : <Link to="/login" className="logout"><BodyText>Login</BodyText></Link>
+                    }
                 </FlexBoxContentLeft>
             </FooterFlexBox>
         </FooterContainer>

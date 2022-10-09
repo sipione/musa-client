@@ -9,6 +9,8 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { UserContext } from  "../../common/contexts/userContext";
 import axios from "axios";
 import { ImagesContext } from "../../common/contexts/imagesContext";
+import { LoadingContainer } from "../../components/loading/style";
+import LoadingComponent from "../../components/loading";
 
 const EditProfilePage =  ()=>{
     const {id} = useParams();
@@ -59,7 +61,7 @@ const EditProfilePage =  ()=>{
         try{
             const user = await axios.request({
                 method: "get",
-                url: `https://musa-mktplace.herokuapp.com/users/${id}`,
+                url: `${process.env.REACT_APP_BASE_URL}/users/${id}`,
                 headers : {
                     "Authorization": userLoged.jwt
                 }
@@ -96,7 +98,7 @@ const EditProfilePage =  ()=>{
             
             await axios.request({
                 method: "post",
-                url: "https://musa-mktplace.herokuapp.com/images",
+                url: `${process.env.REACT_APP_BASE_URL}/images`,
                 data: data
             })
 
@@ -147,7 +149,7 @@ const EditProfilePage =  ()=>{
         try{
             await axios.request({
                 method: "put",
-                url: `https://musa-mktplace.herokuapp.com/users/${id}`,
+                url: `${process.env.REACT_APP_BASE_URL}/users/${id}`,
                 data: userToEdit
             })
         }catch(err){
@@ -163,7 +165,7 @@ const EditProfilePage =  ()=>{
         try{
             const response = await axios({
                 method: "put",
-                url: `https://musa-mktplace.herokuapp.com/images/${id}`,
+                url: `${process.env.REACT_APP_BASE_URL}/images/${id}`,
                 data: {
                     role,
                     description
@@ -176,7 +178,7 @@ const EditProfilePage =  ()=>{
         }
     }
 
-    if(loading) return <h1>Loading...</h1>
+    if(loading) return <LoadingComponent/>
 
     if(!userToEdit) return <h1>Nada pra editar...</h1>
 

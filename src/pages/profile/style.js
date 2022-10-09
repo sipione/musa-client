@@ -65,8 +65,13 @@ export const ProfileDataBox = styled.div`
             display: flex;
             gap: 2vw;
 
-            .tittle--name__link{
+            .title--name__link{
                 display: ${props=> props.owner ? "inline" : "none"};
+
+                svg{
+                    fill: ${secondaryColorHex};
+                    width: 1.5vw;
+                }
             }
         }
 

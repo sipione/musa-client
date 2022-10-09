@@ -10,6 +10,7 @@ import { ReactComponent as Instagram } from "../../assets/images/instagram.svg";
 import { ReactComponent as Edit } from "../../assets/images/edit.svg";
 import { UserContext } from "../../common/contexts/userContext";
 import { ImagesContext } from "../../common/contexts/imagesContext";
+import LoadingComponent from "../../components/loading";
 
 const PageProfile = ()=> {
     const {id} = useParams();
@@ -18,7 +19,7 @@ const PageProfile = ()=> {
     const [error, setError] = useState(null);
     const { professionals, userLoged } = useContext(UserContext);
     const { allImages } = useContext(ImagesContext);
-    const [ owner, setOwner] = useState( userLoged.id == id);
+    const [ owner, setOwner] = useState( false );
 
     const getData = async ()=>{
         var professional = {...professionals.filter(person=>person.id == id)[0]};
@@ -30,10 +31,10 @@ const PageProfile = ()=> {
     useEffect(()=>{
         window.scrollTo(0,0);
         getData();
+        setOwner(userLoged.id == id);
+    }, [professionals, allImages, id])
 
-    }, [professionals, allImages])
-
-    if(loading) return <h1>Loading...</h1>
+    if(loading) return <LoadingComponent/>
     if(error) return <h1>{error}</h1>
     if(!data) return <h1>Nada por hora</h1>
     if(data.category == null) return <Link to={`/profile/edit/${id}`}>{data.name}, edite seu perfil para poder anunciar</Link>
@@ -45,7 +46,7 @@ const PageProfile = ()=> {
                 <div className="profile__data">
                     <TitleH3 className="data__title data__title--name">
                         {data.name.toUpperCase()}  
-                        <Link to={`/profile/edit/${id}`} className="tittle--name__link"><Edit/></Link> 
+                        <Link to={`/profile/edit/${id}`} className="title--name__link"><Edit/></Link> 
                     </TitleH3>
 
                     <TitleH3 className="data__title">{data.site || null}</TitleH3>

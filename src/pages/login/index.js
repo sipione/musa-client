@@ -5,6 +5,7 @@ import { UserContext } from "../../common/contexts/userContext";
 import { BodyText } from "../../common/foundation/typography";
 import { secondaryColorHex } from "../../common/foundation/variables";
 import ButtonComponent from "../../components/button";
+import LoadingComponent from "../../components/loading";
 import { BoxInputLabelDiv, LoginContainer, LoginForm, LoginInputsBox, LoginTitles } from "./style";
 
 const PageLogin = ()=> {
@@ -16,6 +17,7 @@ const PageLogin = ()=> {
     });
     const navigate = useNavigate()
     const [loading, setLoading]= useState(false);
+    const [forgot, setForgot] = useState(false)
 
 
     const login = async ()=>{
@@ -27,7 +29,7 @@ const PageLogin = ()=> {
 
         try{
             const response = await axios.request({
-                url: 'https://musa-mktplace.herokuapp.com/login',
+                url: `${process.env.REACT_APP_BASE_URL}/login`,
                 method: 'POST',
                 data: data
             });
@@ -53,12 +55,32 @@ const PageLogin = ()=> {
             navigate(`/`)
 
         }catch(err){
-            alert(err.message);
+            alert(err.response.data);
+
         }
         setLoading(false);
     }
 
-    if(loading) return <h1>Logando...</h1>
+    const sendEmail = async (event)=>{
+        setLoading(true)
+
+        try{
+            await axios.request({
+                method: "post",
+                url: `http://localhost:8080/api/forgotpass`,
+                data: {email: event.target.dory.value}
+            })
+
+            alert("Email enviado com sucesso. Confira sua caixa de entrada e a pasta de spam");
+
+        }catch(err){
+            alert(err.response.data);
+        }
+
+        setLoading(false)
+    }
+
+    if(loading) return <LoadingComponent/>
 
     return(
         <LoginContainer>
@@ -88,10 +110,14 @@ const PageLogin = ()=> {
                 </form>
             </LoginForm>
 
-            <LoginTitles>
+            <LoginTitles forgot={forgot} >
                 <BodyText>Ou faça o seu <Link to="/register" style={{color: secondaryColorHex, fontWeight: 700}}>Registro</Link></BodyText>
 
-                <Link to="#">Esqueci minha senha</Link>
+                <BodyText className="forgot--text" onClick={()=>setForgot(!forgot)} >Esqueci minha senha</BodyText>
+                <form className="forgot--form" onSubmit={sendEmail} >
+                    <input name="dory" placeholder="Digite o seu email" type="email"/>
+                    <ButtonComponent>Enviar email</ButtonComponent>
+                </form>
             </LoginTitles>
         </LoginContainer>
     )

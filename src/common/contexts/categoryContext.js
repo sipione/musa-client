@@ -15,7 +15,7 @@ const CategoryContextProvider = ({children})=>{
     const getCategories = async ()=>{
         const config = {
             method: 'get',
-            url: 'https://musa-mktplace.herokuapp.com/categories',
+            url: `${process.env.REACT_APP_BASE_URL}/categories`,
             headers: { }
         };
 

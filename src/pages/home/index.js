@@ -4,11 +4,16 @@ import { BodyText, TitleH2 } from "../../common/foundation/typography";
 import { CarrousselCard, HomeCarrousselContainer, HomeCategoriesContainer, HomeContainer, HomeDescriptionContainer } from "./style";
 import {ReactComponent as Logo} from "../../assets/images/logo.svg";
 import users from "../../assets/json/users.json";
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { CategoryContext } from '../../common/contexts/categoryContext';
+import LoadingComponent from '../../components/loading';
+import { UserContext } from '../../common/contexts/userContext';
+import { ImagesContext } from '../../common/contexts/imagesContext';
 
 const PageHome = ()=> {
     const {setCategorySelected, categories} = useContext(CategoryContext);
+    const{userLoged, professionals}=useContext(UserContext);
+    const {allImages} = useContext(ImagesContext);
     window.scrollTo(0,0);
 
     return(
@@ -57,15 +62,17 @@ const PageHome = ()=> {
             <span className='single-separator'/>
 
             <HomeCarrousselContainer>
-                {users.map(item=>{
+                {professionals.map(item=>{
 
                     return (
-                        <CarrousselCard image={item.image}>
-                            <Link to={`/profile/${item.id}`} className='card-title'>
+                        <Link onClick={()=> userLoged ? null:alert("você precisa logar para vizualizar o perfil")} to={userLoged ? `/profile/${item.id}`: "#"}>
+                        <CarrousselCard image={allImages?.filter(img=> img.role == "avatar" && img.user_id == item.id)[0]?.name}>
+                            <div className='card-title'>
                                 <BodyText className='card-title__text'>{item.name.toUpperCase()}</BodyText>
                                 <BodyText className='card-title__text'>{item.function}</BodyText>
-                            </Link>
+                            </div>
                         </CarrousselCard>
+                        </Link>
                     )
                 })}
             </HomeCarrousselContainer>

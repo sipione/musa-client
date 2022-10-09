@@ -67,6 +67,7 @@ export const FlexBoxContentLeft = styled.div`
     padding: 5vh 5vw;
     display: flex;
     flex-direction: column;
+    align-items: start;
     gap: 2vh;
 
     .flex-box__nav{
@@ -121,6 +122,7 @@ export const FlexBoxContentLeft = styled.div`
         border: none;
         border-radius: 10px;
         padding: 2.5%;
+        width: 100%;
     }
 
     .icon-div{
@@ -133,6 +135,20 @@ export const FlexBoxContentLeft = styled.div`
         fill: ${secondaryColorHex};
         cursor: pointer;
         transition: 0.5s;        
+    }
+
+    .logout{
+        color: ${secondaryColorHex};
+        align-self: end;
+        text-align: right;
+        cursor: pointer;
+        transition: 0.5s;
+        text-decoration: none;
+        
+        :hover{
+            color: ${darkColorRgba(1)};
+            text-decoration: underline
+        }
     }
     
     @media screen and (max-width: ${maxMobileScreeenWidth}px){

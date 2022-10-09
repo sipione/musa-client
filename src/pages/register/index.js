@@ -6,6 +6,7 @@ import { BodyText } from "../../common/foundation/typography";
 import ButtonComponent from "../../components/button";
 import { secondaryColorHex } from "../../common/foundation/variables";
 import { UserContext } from "../../common/contexts/userContext";
+import LoadingComponent from "../../components/loading";
 
 const PageRegister = ()=> {
     const [inputs, setInputs] = useState({});
@@ -27,7 +28,7 @@ const PageRegister = ()=> {
         try{
             const response = await axios.request({
                 method: "post",
-                url: "https://musa-mktplace.herokuapp.com/register", 
+                url: `${process.env.REACT_APP_BASE_URL}/register`, 
                 data: inputs,
                 headers: {}
             });
@@ -49,7 +50,7 @@ const PageRegister = ()=> {
     }
     
     if(loading){
-        return <h1>"resgistrando..."</h1>
+        return <LoadingComponent/>
     }
 
     if(error){
@@ -131,8 +132,6 @@ const PageRegister = ()=> {
 
             <RegisterTitles>
                 <BodyText>Ou faça o seu <Link to="/login" style={{color: secondaryColorHex, fontWeight: 700}}>Login</Link></BodyText>
-
-                <Link to="#">Esqueci minha senha</Link>
             </RegisterTitles>
         </RegisterContainer>
     )

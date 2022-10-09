@@ -142,7 +142,7 @@ export const CarrousselCard = styled.div`
     width: 22.5vw;
     height: 45vh;
     position: relative;
-    background: url(${props => require("../../assets/images/"+props.image)}) top / cover no-repeat;
+    background: url(${props => props.image}) top / cover no-repeat;
     cursor: pointer;
     display: flex;
     justify-content: center;

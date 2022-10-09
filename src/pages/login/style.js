@@ -19,6 +19,28 @@ export const LoginTitles = styled.div`
         }
     }
 
+    .forgot--text{
+        cursor: pointer;
+        transition: 0.5s;
+
+        :hover{
+            color: ${secondaryColorHex};
+        }
+    }
+
+    .forgot--form{
+        display:${props => props.forgot ? "block" : "none"};
+        input{
+            width:100%;
+            border: 1px solid ${secondaryColorHex};
+            border-radius: 10px;
+            padding: 2.5vh 2.5vw;
+            margin: 2.5vh 0 ;
+        }
+    }
+
+
+
     @media screen and (max-width: ${maxMobileScreeenWidth}px){
         width: 80%;
     }

@@ -17,7 +17,7 @@ const ImageContextProvider = ({children})=>{
         try{
             const images = await axios({
                 method: "get",
-                url: "https://musa-mktplace.herokuapp.com/images",
+                url: `${process.env.REACT_APP_BASE_URL}/images`,
 
             })
 

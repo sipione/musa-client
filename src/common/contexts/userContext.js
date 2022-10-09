@@ -4,30 +4,42 @@ import { createContext, useEffect, useState } from "react";
 export const UserContext =  createContext()
 
 const UserContextPrivider = ({children})=>{
-    const[professionals, setProfessionals]=useState([]);
-    const[userLoged, setUserLoged]=useState(false);
+    const [professionals, setProfessionals] = useState([]);
+    const [userLoged, setUserLoged] = useState(false);
+    const [total, setTotal] = useState();
 
     useEffect(()=>{
-        getUsers();
+        seedProfessionals()
         logUser()
+        getTotal()
     }, [])
 
-    const getUsers = async()=>{
+    const seedProfessionals = async()=>{
+        const profiles = await getUsers(0);
+        setProfessionals(profiles);    
+    }
 
-        const config = {
-            method: 'get',
-            url: 'https://musa-mktplace.herokuapp.com/users',
-            headers: { }
-        };
+    const getUsers = async(page, category=null)=>{
 
-        const response = await axios(config);
-        setProfessionals(response.data);
+        let headers = category ? {page, category} : {page}
+
+
+        try{
+            const response = await axios.request({
+                method: 'get',
+                url: `http://localhost:8080/api/users`,
+                headers
+            });
+            return(response.data);
+        }catch(err){
+            console.log(err.response.data)
+        }
 
     }
 
     const logUser = async () => {
         const logedData = window.sessionStorage.getItem("logedData");
-        console.log(logedData)
+
         
         if(logedData){
             var logedDataJson = JSON.parse(logedData);
@@ -35,8 +47,20 @@ const UserContextPrivider = ({children})=>{
         }
     }
 
+    const getTotal = async ()=>{
+        try{
+            const total = await axios.request({
+                method: "get",
+                url: `http://localhost:8080/api/users/total`
+            })
+            setTotal(total);
+        }catch(err){
+            console.log(err.response.data)
+        }
+    }
+
     return(
-        <UserContext.Provider value={{professionals, userLoged, setUserLoged}}>
+        <UserContext.Provider value={{total, professionals, userLoged, setUserLoged, getUsers}}>
             {children}
         </UserContext.Provider>
     )

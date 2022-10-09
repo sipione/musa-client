@@ -3,6 +3,7 @@ import GlobalStyle from './common/foundation/globalStyle';
 import FooterComponent from './components/footer';
 import HeaderComponent from './components/header';
 import AboutPage from './pages/aboutUs';
+import ChangePasswordPage from './pages/changePassword';
 import EditProfilePage from './pages/editProfile';
 import PageError404 from './pages/error404';
 import PageHome from './pages/home';
@@ -12,6 +13,7 @@ import PartnershipPage from './pages/partnership';
 import PageProfile from './pages/profile';
 import PageRegister from './pages/register';
 import PageTest from './pages/test';
+
 
 
 function App() {
@@ -29,6 +31,7 @@ function App() {
         <Route path='/partnership' element={<PartnershipPage/>}/>
         <Route path='/profile/:id' element={<PageProfile/>}/>
         <Route path='/profile/edit/:id' element={<EditProfilePage/>}/>
+        <Route path='/change/:token' element={<ChangePasswordPage/>}/>
         <Route path='*' element={<PageError404/>}/>
       </Routes>
       <FooterComponent/>

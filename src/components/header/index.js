@@ -12,7 +12,6 @@ import { UserContext } from "../../common/contexts/userContext";
 
 const HeaderComponent = ()=>{
     const [open, setOpen] = useState(false);
-    const [jwt, setJwt] = useState(window.sessionStorage.getItem("accessToken") || null);
     const {userLoged} = useContext(UserContext);
 
     return (
@@ -26,8 +25,8 @@ const HeaderComponent = ()=>{
                 <Link to="/" className="logo"><Logo /></Link>
                 
                 {userLoged.name
-                ? <TitleH3>Olá, {userLoged.name.toUpperCase()}</TitleH3>
-                : <Link to="login"><TitleH3 className="login">Login</TitleH3></Link>}
+                ? <TitleH3>Olá, {userLoged.name.split(" ")[0].toUpperCase()}</TitleH3>
+                : <Link to="login"><TitleH3 aria-label="logout" className="login">Login</TitleH3></Link>}
 
             </HeaderTitle>
             
