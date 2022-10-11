@@ -11,6 +11,17 @@ export const ProfileContainer = styled.section`
         color: ${darkColorHex};
         font-weight: 500;
     }
+
+    .unloged-link{
+        margin: 5vh 0;
+        text-decoration: none;
+        color: ${darkColorHex};
+        transition: 0.5s;
+
+        :hover{
+            color: ${secondaryColorHex};
+        }
+    }
 `;
 
 export const ProfileDataBox = styled.div`

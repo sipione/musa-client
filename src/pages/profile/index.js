@@ -37,7 +37,7 @@ const PageProfile = ()=> {
     if(loading) return <LoadingComponent/>
     if(error) return <h1>{error}</h1>
     if(!data) return <h1>Nada por hora</h1>
-    if(data.category == null) return <Link to={`/profile/edit/${id}`}>{data.name}, edite seu perfil para poder anunciar</Link>
+    if(data.category == null) return <ProfileContainer> <Link className="unloged-link" to={`/profile/edit/${id}`}><BodyText> {">>"} Olá {userLoged.name}, edite seu perfil para poder anunciar</BodyText></Link></ProfileContainer>
 
     return(
         <ProfileContainer>
