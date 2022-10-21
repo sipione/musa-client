@@ -37,7 +37,7 @@ const HeaderComponent = ()=>{
 
                     <Link className="box-bottom" to="/jobs"><TitleH3>Encontre uma profissional</TitleH3></Link>
 
-                    <Link className="box-bottom" to="/partnership"><TitleH3>parcerias</TitleH3></Link>
+                    <Link className="box-bottom" to="/partnership"><TitleH3>Parcerias</TitleH3></Link>
 
                     <Link className="box-around" to={userLoged ? `/profile/${userLoged.id}` : "/register"}><TitleH3>Criar Perfil</TitleH3></Link>
                 </nav>
@@ -53,7 +53,7 @@ const HeaderComponent = ()=>{
 
                 <Link className="box-bottom" to="/jobs"><TitleH3>Encontre uma profissional</TitleH3></Link>
                 
-                <Link className="box-bottom" to="/partnership"><TitleH3>parcerias</TitleH3></Link>
+                <Link className="box-bottom" to="/partnership"><TitleH3>Parcerias</TitleH3></Link>
                 
                 <Link className="box-around" to={userLoged ? `/profile/${userLoged.id}` : "/register"}><TitleH3>Criar Perfil</TitleH3></Link>
             </HeaderNavigation>

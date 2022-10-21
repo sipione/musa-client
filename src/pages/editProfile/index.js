@@ -1,16 +1,15 @@
 import { useContext, useEffect, useState } from "react";
 import { BodyText } from "../../common/foundation/typography";
 import ButtonComponent from "../../components/button";
-import { EditProfileContainer, EditProfileForm, FormPortfolio } from "./style";
-import categories from "../../assets/json/categories.json";
+import { EditProfileContainer, EditProfileForm, FormPortfolio, PortfolioCards } from "./style";
 import { useParams } from "react-router-dom";
 import { storage } from "../../firebase";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { UserContext } from  "../../common/contexts/userContext";
 import axios from "axios";
 import { ImagesContext } from "../../common/contexts/imagesContext";
-import { LoadingContainer } from "../../components/loading/style";
 import LoadingComponent from "../../components/loading";
+import { CategoryContext } from "../../common/contexts/categoryContext";
 
 const EditProfilePage =  ()=>{
     const {id} = useParams();
@@ -19,6 +18,7 @@ const EditProfilePage =  ()=>{
     const[userImages, setUserImages]=useState(null);
     const { userLoged } = useContext(UserContext);
     const { allImages } = useContext(ImagesContext);
+    const { categories } = useContext(CategoryContext);
     const [portfolioArray, setPortfolioArray] = useState([
         {
             role: "portfolio01"
@@ -171,39 +171,64 @@ const EditProfilePage =  ()=>{
                     description
                 }
             })
-            alert(response.data);
+            console.log(response.data);
 
         }catch(err){
             alert(err)
         }
     }
 
+    const deleteImage = async (event)=>{
+        const imageId = userImages.filter(img=>img.role === event.target.attributes.imageRole.value)[0]?.id;
+        const sure = window.confirm(`Realmente deseja deletar essa imagem? Ela não poderá ser recuperada`);
+        if(sure){
+            setLoading(true)
+            try{
+                await axios.request({
+                    method: "delete",
+                    url:`${process.env.REACT_APP_BASE_URL}/images/${imageId}`
+                })
+                window.location.reload();
+            }catch(err){
+                alert(err.message);
+                console.log(err)
+            }
+            setLoading(false)
+        }
+    }
+
     if(loading) return <LoadingComponent/>
 
     if(!userToEdit) return <h1>Nada pra editar...</h1>
-
+    console.log(userImages);
     return(
         <EditProfileContainer>
             <BodyText>Preencha o formulário para disponibilizar o seu serviço</BodyText>
 
-            <EditProfileForm>
+            <EditProfileForm avatar={userImages.filter(img=>img.role === "avatar")[0]}>
                 <form onSubmit={event => {event.preventDefault(); editProfile(event)}}>
-                    <div className="fieldset">
+                    <div className="fieldsetFirst">
                         <input
                             type="file"
-                            style={{width: "75%"}}
+                            className="big"
                             name= "avatar"
                             onChange={event=>{uploadAvatar(event)}}
                         />
                         <img
-                            style={{width:"25%"}} 
-                            src={userImages.filter(img=>img.role === "avatar")[0]?.name || ""}
+                            className="small"
+                            src={userImages.filter(img=>img.role === "avatar")[0] ? userImages.filter(img=>img.role === "avatar")[0]?.name : require("../../assets/images/default_avatar.webp")}
                             alt="profile avatar"
                         />
+                        <span 
+                            imageRole="avatar"
+                            className="delete"
+                            onClick={deleteImage}
+                        >
+                        X</span>
                     </div>
                     <div className="fieldset">
                         <input 
-                            style={{width: "70%"}} 
+                            className="big"
                             defaultValue={userToEdit.name} 
                             type="text" 
                             placeholder="Nome completo"
@@ -212,11 +237,10 @@ const EditProfilePage =  ()=>{
                             onChange={event=>setUserToEdit({...userToEdit, name: event.target.value})}
                         />
 
-                        <div style={{width: "30%"}}>
+                        <div className="medium">
                             <select
                                 defaultValue={userToEdit.category}
                                 onChange={event=>setUserToEdit({...userToEdit, category: event.target.value})}
-                                
                             >
                                 <option value={null}>escolha uma categoria</option>
                                 {categories.map(category=>(
@@ -234,11 +258,13 @@ const EditProfilePage =  ()=>{
                         <input 
                             defaultValue={userToEdit.phone} type="phone" 
                             placeholder="Digite seu telefone com DDD"
-                            style={{width: "35%"}} 
+                            className="small" 
                             required
                             onChange={event=>setUserToEdit({...userToEdit, phone: event.target.value})}
                         />
-                        <div className="input--checkbox" style={{width: "15%"}}>
+                        <div 
+                            className="input--checkbox small" 
+                        >
                             <input 
                                 defaultChecked={userToEdit.mother} 
                                 type="checkbox"
@@ -248,8 +274,8 @@ const EditProfilePage =  ()=>{
                         </div>
                         <input 
                             defaultValue={userToEdit.profession} type="text" 
-                            placeholder="Profissão" 
-                            style={{width: "45%"}}
+                            placeholder="Que produto ou serviço você deseja ofertar?" 
+                            className="medium"
                             required
                             onChange={event=>setUserToEdit({...userToEdit, profession: event.target.value})}
                         />
@@ -259,7 +285,7 @@ const EditProfilePage =  ()=>{
                         <input 
                             defaultValue={userToEdit.zipcode} type="text" 
                             placeholder="Digite o cep" 
-                            style={{width: "35%"}}
+                            className="big"
                             required
                             onChange={event=>{
                                 setUserToEdit({...userToEdit, zipcode: event.target.value})
@@ -282,14 +308,14 @@ const EditProfilePage =  ()=>{
                             defaultValue={userToEdit.state} 
                             type="text" 
                             placeholder="Estado"
-                            style={{width: "15%"}} 
+                            className="small"
                             readOnly
                         />
                         
                         <input 
                             defaultValue={userToEdit.city} type="text" 
                             placeholder="Cidade"
-                            style={{width: "45%"}} 
+                            className="small"
                             readOnly
                         />
                     </div>
@@ -304,13 +330,13 @@ const EditProfilePage =  ()=>{
                         <input 
                             defaultValue={userToEdit.site} 
                             type="text" 
-                            style={{width: "60%"}}
+                            className="medium"
                             placeholder="Site"
                             onChange={event=>setUserToEdit({...userToEdit, site: event.target.value})}
                         />
 
                         <input 
-                            style={{width: "40%"}}
+                            className="medium"
                             defaultValue={userToEdit.instagram} 
                             type="text" 
                             placeholder="Instagram"
@@ -323,7 +349,7 @@ const EditProfilePage =  ()=>{
                     <FormPortfolio>
                         {portfolioArray.map(object=>{
                             return(
-                                <div className="portfolio__cards">
+                                <PortfolioCards image={userImages.filter(img=>img.role === object.role)[0]}>
                                     <input 
                                         type="file" 
                                         name={object.role} 
@@ -333,6 +359,13 @@ const EditProfilePage =  ()=>{
 
                                     <img src={userImages.filter(img=>img.role === object.role)[0]?.name} alt={userImages.filter(img=>img.role === object.role)[0]?.description}/>
 
+                                    <span 
+                                        imageRole={object.role}
+                                        className="delete"
+                                        onClick={deleteImage}
+                                    >
+                                    X</span>
+
                                     <input placeholder="descrição" defaultValue={userImages.filter(img=>img.role === object.role)[0]?.description} 
                                     onBlur={event=>{
                                         if(event.target.value.length > 1){
@@ -340,7 +373,7 @@ const EditProfilePage =  ()=>{
                                         }
                                     }} 
                                     name={object.role}/>
-                                </div>
+                                </PortfolioCards>
                             )
                         })}
                     </FormPortfolio>

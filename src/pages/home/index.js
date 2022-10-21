@@ -27,7 +27,7 @@ const PageHome = ()=> {
             </div>
 
             <HomeCategoriesContainer>
-                {categories.map(item=>{
+                {categories.filter(cat=>cat.img_name!=null).map(item=>{
                     return (
                         <Link
                         to="/jobs" 

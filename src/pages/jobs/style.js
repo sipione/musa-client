@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { darkColorHex, darkColorRgba, maxMobileScreeenWidth, primaryColorHex, secondaryColorHex, titleH3FontSize } from "../../common/foundation/variables";
+import { darkColorHex, darkColorRgba, lightColorHex, maxMobileScreeenWidth, primaryColorHex, secondaryColorHex, titleH2FontSize, titleH3FontSize } from "../../common/foundation/variables";
 
 export const JobsContainer = styled.section`
     display: flex;
@@ -39,6 +39,28 @@ export const JobsFilterBox = styled.div`
     margin-right: 1vw;
     position: relative;
 
+    .filters01{
+        display: flex;
+        flex-direction: column;
+        gap: 2.5vh;
+
+        div{
+            display: flex;
+            gap: 2.5vw;
+            padding: 1vh 2.5vw;
+            background: ${secondaryColorHex};
+            color: ${lightColorHex};
+
+            select{
+                border: none;
+                background: none;
+                outline: none;
+                color: ${lightColorHex};
+                cursor: pointer;
+            }
+        }
+    }
+
     .arrow{
         display:none;
     }
@@ -48,7 +70,7 @@ export const JobsFilterBox = styled.div`
     }
 
     .filter__item{
-        padding: 1vh 5vw;
+        padding: 1vh 2.5vw;
     }
 
     .filter__item--desc{
@@ -143,6 +165,6 @@ export const ContentText = styled.div`
     }
 
     @media screen and (max-width: ${maxMobileScreeenWidth}px){
-        width: 100%;
+        width: 55%;
     }
 `;

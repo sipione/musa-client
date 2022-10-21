@@ -11,7 +11,7 @@ const PartnershipPage = ()=>{
         <PartnershipContainer>
             <PartnershipTitles>
                 <BodyText>
-                    Quer ser nosso parceiro?
+                    Quer fazer uma parceria conosco?
                 </BodyText>
 
                 <BodyText>

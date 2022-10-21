@@ -13,7 +13,7 @@ const GlobalStyle = createGlobalStyle`
 
     body{
         font-family: 'Poppins', sans-serif;
-        word-wrap:break-word;
+        word-wrap: break-word;
     }
 `;
 

@@ -78,7 +78,7 @@ export const HeaderMobileNavegation = styled.div`
         flex-direction: column;
         gap: 1vh;
         position: absolute;
-        top: 2.5vh;
+        top: 7.5vh;
         right:5vw;
         width: 30vw;
         z-index: 2;

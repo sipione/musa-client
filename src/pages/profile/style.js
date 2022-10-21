@@ -36,6 +36,10 @@ export const ProfileDataBox = styled.div`
     }
 
     .profile__data{
+        a{
+            text-decoration: none;
+        }
+
         width: 60%;
         padding-right: 2.5vw;
         display: flex;
@@ -98,9 +102,21 @@ export const ProfileDataBox = styled.div`
             width: 100%;
             gap: 1vh;
             align-items: center;
+            padding-right: 0;
+            padding: 0 5vw;
+
+            .data__wpp{
+                width: 100%;
+            }
 
             .data__title--func, .data__title--last, .data__title--about{
                 align-self: start;
+            }
+
+            .data__instagram{
+                svg{
+                    width: 7vw;
+                }
             }
         }
         
@@ -137,6 +153,7 @@ export const ImagesBoxCard = styled.div`
     margin-bottom: 5vh;
 
     .card__picture{
+        border-radius: 5px;
         width: 100%;
         height: 20vw;
         background: url(${props=> props.profileImage ? props.profileImage : null}) center / cover no-repeat;

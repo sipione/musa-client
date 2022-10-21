@@ -11,18 +11,26 @@ import { ReactComponent as Edit } from "../../assets/images/edit.svg";
 import { UserContext } from "../../common/contexts/userContext";
 import { ImagesContext } from "../../common/contexts/imagesContext";
 import LoadingComponent from "../../components/loading";
+import PoupupImageComponent from "../../components/poup-upImages";
 
 const PageProfile = ()=> {
     const {id} = useParams();
     const [data, setData] = useState(false);
     const [loading, setLoading] = useState(null);
     const [error, setError] = useState(null);
-    const { professionals, userLoged } = useContext(UserContext);
+    const { professionals, userLoged, getUserById } = useContext(UserContext);
     const { allImages } = useContext(ImagesContext);
     const [ owner, setOwner] = useState( false );
+    const [poupupProps, setPoupupProps] = useState({
+        active: false,
+        mainImage: "",
+        arrayOfImages: []
+    });
 
     const getData = async ()=>{
-        var professional = {...professionals.filter(person=>person.id == id)[0]};
+        var professional = await getUserById(id, userLoged.jwt);
+        console.log(professional)
+        if(Object.keys(professional).length<1)return
         professional.images = allImages?.filter(img=>img.user_id === id);
         setData(professional);
     }
@@ -41,6 +49,7 @@ const PageProfile = ()=> {
 
     return(
         <ProfileContainer>
+            <PoupupImageComponent props={poupupProps} />
             <ProfileDataBox owner={owner} img={data.images.filter(img=>img.role==="avatar")[0]?.name || null}>
                 <div className="profile__pic"/>
                 <div className="profile__data">
@@ -49,7 +58,7 @@ const PageProfile = ()=> {
                         <Link to={`/profile/edit/${id}`} className="title--name__link"><Edit/></Link> 
                     </TitleH3>
 
-                    <TitleH3 className="data__title">{data.site || null}</TitleH3>
+                    <a href={`https://${data.site}`} target="__blank"><TitleH3 className="data__title">{data.site || null}</TitleH3></a>
                     
                     <div className="data__instagram">
                         <Instagram/>
@@ -62,7 +71,7 @@ const PageProfile = ()=> {
                     
                     <TitleH3 className="data__title data__title--last">{data.mother ? "mãe" : null}</TitleH3>
 
-                    <ButtonComponent>ENTAR EM CONTATO</ButtonComponent>
+                    <a className="data__wpp" href={`https://wa.me/55${data.phone}`} target="__blank"><ButtonComponent>ENTAR EM CONTATO</ButtonComponent></a>
                 </div>
             </ProfileDataBox>
 
@@ -73,7 +82,14 @@ const PageProfile = ()=> {
                     data.images.filter(img=>img.role!=="avatar").map(image=>{
 
                         return(
-                            <ImagesBoxCard profileImage={image.name}>
+                            <ImagesBoxCard 
+                                profileImage={image.name}
+                                onClick={()=>setPoupupProps({
+                                    active: true,
+                                    mainImage: image.name,
+                                    arrayOfImages: [...data.images.filter(img=>img.role!=="avatar")]
+                                })}
+                            >
                                 <div className="card__picture"/>
                                 <BodyText className="card__desc">{image.description}</BodyText>
                             </ImagesBoxCard>
