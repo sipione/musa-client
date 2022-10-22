@@ -13,8 +13,10 @@ import { ImagesContext } from '../../common/contexts/imagesContext';
 const PageHome = ()=> {
     const {setCategorySelected, categories} = useContext(CategoryContext);
     const{userLoged, professionals}=useContext(UserContext);
-    const {allImages} = useContext(ImagesContext);
+    const {avatars} = useContext(ImagesContext);
     window.scrollTo(0,0);
+
+    if(!avatars) return <LoadingComponent/>
 
     return(
         <HomeContainer>
@@ -66,7 +68,7 @@ const PageHome = ()=> {
 
                     return (
                         <Link onClick={()=> userLoged ? null:alert("você precisa logar para vizualizar o perfil")} to={userLoged ? `/profile/${item.id}`: "#"}>
-                        <CarrousselCard image={allImages?.filter(img=> img.role == "avatar" && img.user_id == item.id)[0]?.name}>
+                        <CarrousselCard image={avatars?.filter(img=> img.user_id == item.id)[0]?.name}>
                             <div className='card-title'>
                                 <BodyText className='card-title__text'>{item.name.toUpperCase()}</BodyText>
                                 <BodyText className='card-title__text'>{item.function}</BodyText>

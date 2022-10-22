@@ -4,15 +4,17 @@ import bgSocial from "../../assets/images/bgSocial.webp";
 import { BodyText, TitleH3 } from "../../common/foundation/typography";
 import {ReactComponent as Instagram} from "../../assets/images/instagram.svg";
 import {ReactComponent as Facebook} from "../../assets/images/facebook.svg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { UserContext } from "../../common/contexts/userContext";
 
 const FooterComponent = ()=>{
     const {userLoged} = useContext(UserContext);
+    const navigate = useNavigate();
 
     const logout = ()=>{
         window.sessionStorage.clear();
+        navigate("/");
         window.location.reload();
     }
 

@@ -35,28 +35,31 @@ const PageLogin = ()=> {
             });
             return response
         }catch(err){
-            throw new Error(err.message);
+            console.log(err);
+            alert("Login ou senha incorreto");
         }
     }
 
     const makelogin = async ()=>{
         setLoading(true);
         try{
-            const response = await login()
-            window.sessionStorage.setItem("accessToken", response.data.jwt);
-            window.sessionStorage.setItem("logedData", JSON.stringify(response.data));
+            const response = await login();
 
-            setUserLoged({
-                id: response.data.id,
-                name: response.data.name,
-                jwt: response.data.jwt
-            })
-
-            navigate(`/`)
+            if(response){
+                window.sessionStorage.setItem("accessToken", response.data.jwt);
+                window.sessionStorage.setItem("logedData", JSON.stringify(response.data));
+                
+                setUserLoged({
+                    id: response.data.id,
+                    name: response.data.name,
+                    jwt: response.data.jwt
+                })
+                navigate(`/`)
+            }
 
         }catch(err){
-            alert(err.response.data);
-
+            alert(err);
+            console.log(err);
         }
         setLoading(false);
     }

@@ -12,7 +12,7 @@ const PageJobs = ()=> {
     const [hidden, setHidden] = useState(true);
     const {categories, categorySelected, setCategorySelected} = useContext(CategoryContext);
     const {userContextLoading, userLoged, getUsers, professionals, locations, states} = useContext(UserContext);
-    const {allImages} = useContext(ImagesContext);
+    const {allImages, avatars} = useContext(ImagesContext);
     const [page, setPage] = useState(0);
     const [customProfessionals, setCustomProfessionals] = useState(null)
     const [filters, setFilters] = useState({
@@ -30,7 +30,7 @@ const PageJobs = ()=> {
         });
 
         setCustomProfessionals(professionals)
-    }, [professionals]);
+    }, [professionals, avatars]);
 
     useEffect(()=>{
         handleCustomProfessionals()
@@ -46,8 +46,8 @@ const PageJobs = ()=> {
         }
     }
 
-    if(!customProfessionals || userContextLoading || !allImages) return <LoadingComponent/>
-    console.log({...filters});
+    if(!customProfessionals || userContextLoading || !avatars) return <LoadingComponent/>
+
     return(
         <JobsContainer>
             <JobsCategoryIndicator selection={categorySelected}>
@@ -158,7 +158,7 @@ const PageJobs = ()=> {
             <JobsOffersBox>
                 {customProfessionals.map(user=>{
                     var userAvatar = "";
-                    allImages.map(img=>img.user_id == user.id && img.role == "avatar" ? userAvatar = img.name : null)
+                    avatars.map(img=>img.user_id == user.id && img.role == "avatar" ? userAvatar = img.name : null)
                     
                     return (
                         <Link to={userLoged ? `/profile/${user.id}` : "#"} onClick={event=> userLoged ? null : alert("você precisa estar logado para acessar os perfís")} >

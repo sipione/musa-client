@@ -19,30 +19,41 @@ const PageProfile = ()=> {
     const [loading, setLoading] = useState(null);
     const [error, setError] = useState(null);
     const { professionals, userLoged, getUserById } = useContext(UserContext);
-    const { allImages } = useContext(ImagesContext);
+    const { getImagesById } = useContext(ImagesContext);
     const [ owner, setOwner] = useState( false );
     const [poupupProps, setPoupupProps] = useState({
         active: false,
         mainImage: "",
         arrayOfImages: []
     });
+    const [allImages, setAllImages] = useState(false)
 
     const getData = async ()=>{
         var professional = await getUserById(id, userLoged.jwt);
-        console.log(professional)
+        console.log(userLoged)
         if(Object.keys(professional).length<1)return
-        professional.images = allImages?.filter(img=>img.user_id === id);
+        professional.images = allImages?.filter(img=>img.role == "avatar" && img.user_id === id);
         setData(professional);
+    }
+
+    const getImages = async id => {
+        const imgs = await getImagesById(id);
+        setAllImages(imgs);
     }
     
 
     useEffect(()=>{
         window.scrollTo(0,0);
-        getData();
-        setOwner(userLoged.id == id);
+
+        if(userLoged && allImages){
+            getData();
+            setOwner(userLoged.id == id);
+        }else{
+            getImages(id)
+        }
     }, [professionals, allImages, id])
 
-    if(loading) return <LoadingComponent/>
+    if(loading || !allImages) return <LoadingComponent/>
     if(error) return <h1>{error}</h1>
     if(!data) return <h1>Nada por hora</h1>
     if(data.category == null) return <ProfileContainer> <Link className="unloged-link" to={`/profile/edit/${id}`}><BodyText> {">>"} Olá {userLoged.name}, edite seu perfil para poder anunciar</BodyText></Link></ProfileContainer>
@@ -79,15 +90,14 @@ const PageProfile = ()=> {
             
             <ProfileImagesBox>
                 {
-                    data.images.filter(img=>img.role!=="avatar").map(image=>{
-
+                    allImages.filter(img=>img.role!=="avatar").map(image=>{
                         return(
                             <ImagesBoxCard 
                                 profileImage={image.name}
                                 onClick={()=>setPoupupProps({
                                     active: true,
                                     mainImage: image.name,
-                                    arrayOfImages: [...data.images.filter(img=>img.role!=="avatar")]
+                                    arrayOfImages: [...allImages.filter(img=>img.role!=="avatar")]
                                 })}
                             >
                                 <div className="card__picture"/>

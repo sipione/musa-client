@@ -32,6 +32,7 @@ export const ProfileDataBox = styled.div`
     .profile__pic{
         width: 40%;
         min-height: 40vh;
+        border-radius: 5px;
         background: url(${props => props.img ? props.img : primaryColorHex}) center / cover no-repeat;
     }
 
@@ -151,6 +152,7 @@ export const ProfileImagesBox = styled.div`
 export const ImagesBoxCard = styled.div`
     width: 25vw;
     margin-bottom: 5vh;
+    cursor: pointer;
 
     .card__picture{
         border-radius: 5px;

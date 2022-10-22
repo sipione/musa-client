@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { darkColorHex, maxMobileScreeenWidth, secondaryColorHex } from "../../common/foundation/variables";
+import { darkColorHex, lightColorHex, maxMobileScreeenWidth, secondaryColorHex } from "../../common/foundation/variables";
 
 
 export const RegisterTitles = styled.div`
@@ -83,5 +83,33 @@ export const RegisterContainer = styled.section`
 
     @media screen and (max-width: ${maxMobileScreeenWidth}px){
         padding: 5vh 5vw;
+    }
+`;
+
+export const ContainerInputRadioBox = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 2.5vh;
+
+    div{
+        display: flex;
+        gap: 0.25vw;
+    }
+
+    span{
+        text-align: center;
+        color: ${lightColorHex};
+        width: 25px;
+        height:25px;
+        border-radius:5px;
+        transition: 0.5s;
+    }
+
+    input{
+        display: none;
+    }
+
+    input:checked + span{
+        background: ${secondaryColorHex};
     }
 `;

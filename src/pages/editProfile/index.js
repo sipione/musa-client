@@ -10,14 +10,15 @@ import axios from "axios";
 import { ImagesContext } from "../../common/contexts/imagesContext";
 import LoadingComponent from "../../components/loading";
 import { CategoryContext } from "../../common/contexts/categoryContext";
+import logo from "../../assets/images/icon.png";
 
 const EditProfilePage =  ()=>{
     const {id} = useParams();
     const[loading, setLoading]=useState(null);
-    const[userToEdit, setUserToEdit]=useState(null);
-    const[userImages, setUserImages]=useState(null);
-    const { userLoged } = useContext(UserContext);
-    const { allImages } = useContext(ImagesContext);
+    const[userToEdit, setUserToEdit]=useState(false);
+    const[userImages, setUserImages]=useState(false);
+    const { userLoged, getUserById } = useContext(UserContext);
+    const { getImagesById } = useContext(ImagesContext);
     const { categories } = useContext(CategoryContext);
     const [portfolioArray, setPortfolioArray] = useState([
         {
@@ -43,35 +44,22 @@ const EditProfilePage =  ()=>{
     useEffect(()=>{
         window.scrollTo(0,0);
         if(userLoged.jwt){
-            getUserById()
+            getUser()
         }
         
-        if(allImages){
+        if(!userImages){
             getUserImages()
         }
-    }, [userLoged, allImages]);
+    }, [userLoged]);
 
-    const getUserImages = ()=>{
-        const array = allImages.filter(img=>img.user_id == id);
+    const getUserImages = async ()=>{
+        const array = await getImagesById(id);
         setUserImages(array);
     }
 
-    const getUserById = async ()=>{
-        setLoading(true)
-        try{
-            const user = await axios.request({
-                method: "get",
-                url: `${process.env.REACT_APP_BASE_URL}/users/${id}`,
-                headers : {
-                    "Authorization": userLoged.jwt
-                }
-            });
-
-            setUserToEdit(user.data)
-        }catch(err){
-            alert(err)
-        }
-        setLoading(false)
+    const getUser = async ()=>{
+        const user = await getUserById(id, userLoged.jwt);
+        setUserToEdit(user)
     }
 
     const uploadAvatar = async (e)=>{
@@ -161,14 +149,17 @@ const EditProfilePage =  ()=>{
     const uploadDescription = async event=>{
         const description = event.target.value;
         const role = event.target.name;
+        console.log(event.target.name)
+
 
         try{
             const response = await axios({
-                method: "put",
-                url: `${process.env.REACT_APP_BASE_URL}/images/${id}`,
+                method: "post",
+                url: `${process.env.REACT_APP_BASE_URL}/images/`,
                 data: {
                     role,
-                    description
+                    description,
+                    user_id: id
                 }
             })
             console.log(response.data);
@@ -197,10 +188,10 @@ const EditProfilePage =  ()=>{
         }
     }
 
-    if(loading) return <LoadingComponent/>
+    if(!userToEdit || !userImages) return <LoadingComponent/>
 
     if(!userToEdit) return <h1>Nada pra editar...</h1>
-    console.log(userImages);
+
     return(
         <EditProfileContainer>
             <BodyText>Preencha o formulário para disponibilizar o seu serviço</BodyText>
@@ -212,6 +203,7 @@ const EditProfilePage =  ()=>{
                             type="file"
                             className="big"
                             name= "avatar"
+                            accept="image/png, image/jpeg, image/webp"
                             onChange={event=>{uploadAvatar(event)}}
                         />
                         <img
@@ -344,20 +336,26 @@ const EditProfilePage =  ()=>{
                         />
                     </div>
 
-                    <BodyText>Faça upload de fotos dos seus melhores trabalhos: </BodyText>
+                    <ButtonComponent type="submit">ATUALIZAR PERFIL</ButtonComponent>
 
                     <FormPortfolio>
+                        <BodyText className="title">Faça upload de fotos dos seus melhores trabalhos: </BodyText>
                         {portfolioArray.map(object=>{
                             return(
                                 <PortfolioCards image={userImages.filter(img=>img.role === object.role)[0]}>
                                     <input 
                                         type="file" 
-                                        name={object.role} 
+                                        name={object.role}
                                         accept="image/png, image/jpeg" 
                                         onChange={uploadAvatar}
                                     />
 
-                                    <img src={userImages.filter(img=>img.role === object.role)[0]?.name} alt={userImages.filter(img=>img.role === object.role)[0]?.description}/>
+                                    <img 
+                                        src={userImages.filter(img=>img.role === object.role)[0]?.name 
+                                            ?userImages.filter(img=>img.role === object.role)[0]?.name
+                                            : logo
+                                        } 
+                                        alt={userImages.filter(img=>img.role === object.role)[0]?.description}/>
 
                                     <span 
                                         imageRole={object.role}
@@ -366,20 +364,15 @@ const EditProfilePage =  ()=>{
                                     >
                                     X</span>
 
-                                    <input placeholder="descrição" defaultValue={userImages.filter(img=>img.role === object.role)[0]?.description} 
-                                    onBlur={event=>{
-                                        if(event.target.value.length > 1){
-                                            uploadDescription(event)
-                                        }
-                                    }} 
-                                    name={object.role}/>
+                                    <input 
+                                        placeholder="descrição" defaultValue={userImages.filter(img=>img.role === object.role)[0]?.description} 
+                                        name={object.role}
+                                        onBlur={uploadDescription} 
+                                    />
                                 </PortfolioCards>
                             )
                         })}
                     </FormPortfolio>
-
-
-                    <ButtonComponent type="submit">ATUALIZAR PERFIL</ButtonComponent>
                 </form>
             </EditProfileForm>
         </EditProfileContainer>

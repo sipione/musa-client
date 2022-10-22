@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { RegisterContainer, RegisterForm, RegisterTitles } from "./style";
+import { ContainerInputRadioBox, RegisterContainer, RegisterForm, RegisterTitles } from "./style";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { BodyText } from "../../common/foundation/typography";
@@ -22,7 +22,8 @@ const PageRegister = ()=> {
 
     }, [])
     
-    const makeRegister = async ()=>{
+    const makeRegister = async (event)=>{
+        event.preventDefault();
         setLoading(true)
 
         try{
@@ -32,6 +33,8 @@ const PageRegister = ()=> {
                 data: inputs,
                 headers: {}
             });
+            console.log(response.data)
+            
             window.sessionStorage.setItem("accessToken", response.data.jwt);
             
             window.sessionStorage.setItem("logedData", JSON.stringify(response.data));
@@ -40,11 +43,11 @@ const PageRegister = ()=> {
                 name: response.data.name,
                 jwt: response.data.jwt
             })
-            navigate(`/`)
+            event.target.role.value == "buyer" ? navigate(`/`) : navigate(`/profile/edit/${response.data.id}`)
 
         }catch(err){
             console.log(err)
-            setError(err.message);
+            setError(err.response.data.message);
         }
         setLoading(false)
     }
@@ -126,6 +129,20 @@ const PageRegister = ()=> {
                         required
                         onChange={(event)=>setInputs({...inputs, phone: event.target.value})}
                     />
+
+                    <ContainerInputRadioBox>
+                        <div>
+                            <input defaultChecked id="saller" type="radio" value="saller" name="role"/>
+                            <span>X</span>
+                            <label htmlFor="saller">SOU PRESTADORA DE SERVIÇO</label>
+                        </div>
+
+                        <div>
+                            <input id="buyer" type="radio" value="buyer" name="role"/>
+                            <span>X</span>
+                            <label htmlFor="buyer">QUERO CONTRATAR SERVIÇO</label>
+                        </div>
+                    </ContainerInputRadioBox>
                     <ButtonComponent>FAZER REGISTRO</ButtonComponent>
                 </form>
             </RegisterForm>

@@ -5,14 +5,14 @@ import { PoupupImageContainer } from "./style"
 
 const PoupupImageComponent = (props)=>{
     const {active, mainImage, arrayOfImages} = props.props
-    const [open, setOpen] = useState(active);
+    const [open, setOpen] = useState(false);
     const [currentImage, setCurrentImage] = useState(mainImage);
 
     useEffect(()=>{
         setOpen(active)
         setCurrentImage(mainImage)
     },[props])
-
+    
     const changeImage = (event)=>{
         event.preventDefault();
         const next = event.target.className.includes("next");

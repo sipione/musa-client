@@ -39,7 +39,7 @@ const UserContextPrivider = ({children})=>{
     }
 
     const seedProfessionals = async()=>{
-        const profiles = await getUsers(0);
+        const profiles = await getUsers(0, {});
         setProfessionals(profiles);    
     }
 
@@ -100,7 +100,6 @@ const UserContextPrivider = ({children})=>{
             const netStates = [...new Set(growthstates)];
 
             setStates(netStates);
-            console.log(netStates);
             setLocations(response.data);
         }catch(err){
             alert(err.response.data);

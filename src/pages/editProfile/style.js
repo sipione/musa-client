@@ -137,6 +137,12 @@ export const FormPortfolio = styled.div`
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
+    margin-top: 5vh;
+
+    .title{
+        width: 100%;
+        margin: 5vh 0;
+    }
 `;
 
 export const PortfolioCards = styled.div`
@@ -153,9 +159,8 @@ export const PortfolioCards = styled.div`
     }
 
     img{
-        width: 70%;
-        height: auto;
-        background: grey;
+        height: 30vh;
+        width: auto;
         border-radius: 5px;
     }
 
