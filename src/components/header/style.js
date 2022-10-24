@@ -16,7 +16,7 @@ export const HeaderContainer = styled.header`
         padding: 3vh 5vw;
         transition:0.5s;
         min-height: ${props=>props.open ? "40vh" : "25vh"};
-        gap:5vh;
+        gap:2.5vh;
     }
 `;
 
@@ -40,8 +40,9 @@ export const HeaderTitle = styled.div`
     }
 
     div{
+        width: 20%;
         display: flex;
-        gap: 2.5vw;
+        justify-content: end;
     }
 
     svg, #facebook{
@@ -56,7 +57,20 @@ export const HeaderTitle = styled.div`
     }
 
     @media screen and (max-width: ${maxMobileScreeenWidth}px){
+        flex-direction: column;
+        align-items: start;
+        gap:1vh;
+
         div{
+            align-tems: start;
+        }
+        
+        .comunidade{
+            order: 2;
+            width: 60%;
+        }
+
+        div:not[.comunidade]{
             display: none;
         }
 
@@ -78,7 +92,7 @@ export const HeaderMobileNavegation = styled.div`
         flex-direction: column;
         gap: 1vh;
         position: absolute;
-        top: 7.5vh;
+        top: 2.5vh;
         right:5vw;
         width: 30vw;
         z-index: 2;
@@ -101,6 +115,7 @@ export const HeaderMobileNavegation = styled.div`
 
             a{
                 background: ${primaryColorHex};
+                text-decoration: none;
             }
         }
 
