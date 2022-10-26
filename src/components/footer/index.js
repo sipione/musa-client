@@ -1,7 +1,7 @@
-import { FlexBoxContentCenter, FlexBoxContentLeft, FooterContainer, FooterFlexBox } from "./style"
+import { FlexBoxContentCenter, FlexBoxContentLeft, FooterContainer, FooterCopy, FooterFlexBox } from "./style"
 import bgPeople from "../../assets/images/bgPeople.webp";
 import bgSocial from "../../assets/images/bgSocial.webp"; 
-import { BodyText, TitleH3 } from "../../common/foundation/typography";
+import { BodyLittleText, BodyText, TitleH3 } from "../../common/foundation/typography";
 import {ReactComponent as Instagram} from "../../assets/images/instagram.svg";
 import {ReactComponent as Facebook} from "../../assets/images/facebook.svg";
 import { Link, useNavigate } from "react-router-dom";
@@ -73,6 +73,11 @@ const FooterComponent = ()=>{
                     }
                 </FlexBoxContentLeft>
             </FooterFlexBox>
+            <FooterCopy>
+                <BodyLittleText>Agência: <a href="https://celineestrategias.com/" target="__blank"> Celine Estratégias</a></BodyLittleText>
+                <BodyLittleText>Todos os direitos reservados a Musa©</BodyLittleText>
+                <BodyLittleText>Programação: <a href="https://sipione.tech" target="__blank">Sipione Tech</a></BodyLittleText>
+            </FooterCopy>
         </FooterContainer>
     )
 }

@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { BodyText } from "../../common/foundation/typography";
+import { BodyText, TitleH2 } from "../../common/foundation/typography";
 import ButtonComponent from "../../components/button";
 import { EditProfileContainer, EditProfileForm, FormPortfolio, PortfolioCards } from "./style";
 import { useParams } from "react-router-dom";
@@ -39,7 +39,8 @@ const EditProfilePage =  ()=>{
         {
             role: "portfolio06"
         }
-    ])
+    ]);
+    const [portfolioToEdit, setPortfolioToEdit] = useState({})
     
     useEffect(()=>{
         window.scrollTo(0,0);
@@ -147,23 +148,28 @@ const EditProfilePage =  ()=>{
     }
 
     const uploadDescription = async event=>{
+        event.preventDefault();
         const description = event.target.value;
         const role = event.target.name;
-        console.log(event.target.name)
 
+        
 
         try{
-            const response = await axios({
-                method: "post",
-                url: `${process.env.REACT_APP_BASE_URL}/images/`,
-                data: {
-                    role,
-                    description,
-                    user_id: id
-                }
-            })
-            console.log(response.data);
-
+            setLoading(true);
+            await Promise.all(Object.entries(portfolioToEdit).map(async porftfolio=>{
+                const response = await axios({
+                    method: "post",
+                    url: `${process.env.REACT_APP_BASE_URL}/images/`,
+                    data: {
+                        role: porftfolio[0],
+                        description: porftfolio[1].description,
+                        price: porftfolio[1].price,
+                        user_id: id
+                    }
+                })
+                console.log(response.data);
+            }))
+            setLoading(false);
         }catch(err){
             alert(err)
         }
@@ -337,9 +343,11 @@ const EditProfilePage =  ()=>{
                     </div>
 
                     <ButtonComponent type="submit">ATUALIZAR PERFIL</ButtonComponent>
+                </form>
 
+                <form onSubmit={uploadDescription}>
                     <FormPortfolio>
-                        <BodyText className="title">Faça upload de fotos dos seus melhores trabalhos: </BodyText>
+                        <TitleH2 className="title">Faça upload de fotos dos seus melhores trabalhos: </TitleH2>
                         {portfolioArray.map(object=>{
                             return(
                                 <PortfolioCards image={userImages.filter(img=>img.role === object.role)[0]}>
@@ -364,15 +372,47 @@ const EditProfilePage =  ()=>{
                                     >
                                     X</span>
 
+                                    <div className="portfolio__details">
+
                                     <input 
                                         placeholder="descrição" defaultValue={userImages.filter(img=>img.role === object.role)[0]?.description} 
                                         name={object.role}
-                                        onBlur={uploadDescription} 
+                                        onChange={(event)=>{
+                                            const obj = portfolioToEdit[object.role] || {};
+
+                                            obj.description = event.target.value;
+
+                                            setPortfolioToEdit({
+                                                ...portfolioToEdit,
+                                                [object.role]: obj
+                                            })
+                                        }} 
                                     />
+
+                                    <input 
+                                        placeholder="Preço" 
+                                        type="number"
+                                        defaultValue={userImages.filter(img=>img.role === object.role)[0]?.price} 
+                                        name={object.role}
+                                        onChange={(event)=>{
+                                            const obj = portfolioToEdit[object.role] || {};
+
+                                            obj.price = event.target.value;
+
+                                            setPortfolioToEdit({
+                                                ...portfolioToEdit,
+                                                [object.role]: obj
+                                            })
+                                        }} 
+                                    />
+                                    </div>
+
                                 </PortfolioCards>
                             )
                         })}
                     </FormPortfolio>
+                    
+                    <ButtonComponent>ATUALIZAR PORTFOLIO</ButtonComponent>
                 </form>
             </EditProfileForm>
         </EditProfileContainer>

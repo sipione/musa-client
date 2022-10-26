@@ -147,19 +147,29 @@ export const FormPortfolio = styled.div`
 
 export const PortfolioCards = styled.div`
     width: 30%;
+    height: 55vh;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-between;
     gap: 1vh;
     margin-bottom: 5vh;
     position: relative;
 
+    .portfolio__details{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 1vh;
+    }
+    
     input{
         width:100%;
     }
 
     img{
-        height: 30vh;
+        max-height: 30vh;
+        max-width: 100%;
         width: auto;
         border-radius: 5px;
     }
@@ -175,5 +185,6 @@ export const PortfolioCards = styled.div`
 
     @media screen and (max-width: ${maxMobileScreeenWidth}px){
         width: 100%;
+        height: auto;
     }
 `;

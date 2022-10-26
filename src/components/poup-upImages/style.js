@@ -29,10 +29,22 @@ export const PoupupImageContainer = styled.section`
         }
     }
 
-    .image{
-        height: 80%;
-        border-radius: 5px;
+    .poupup__content{
+        max-height: 100%;
+        max-width: 80%;
+        display: flex;
+        flex-direction: column;
+        color: ${lightColorHex};
+        align-items: center;
+        gap: 2.5vh;
+        
+        .image{
+            max-height: 80%;
+            max-width: 80%;
+            border-radius: 5px;
+        }
     }
+
 
     .back, .next{
         margin: 0 5vw;

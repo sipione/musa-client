@@ -181,3 +181,15 @@ export const FlexBoxContentLeft = styled.div`
     }
 `;
 
+export const FooterCopy = styled.div`
+    display: flex;
+    justify-content: space-between;
+    background: ${secondaryColorHex};
+    padding: 0 5vw;
+    color: ${lightColorHex};
+
+    a{
+        color: ${primaryColorHex};
+    }
+`;
+

@@ -30,9 +30,6 @@ const PageProfile = ()=> {
 
     const getData = async ()=>{
         var professional = await getUserById(id, userLoged.jwt);
-        console.log(userLoged)
-        if(Object.keys(professional).length<1)return
-        professional.images = allImages?.filter(img=>img.role == "avatar" && img.user_id === id);
         setData(professional);
     }
 
@@ -44,14 +41,12 @@ const PageProfile = ()=> {
 
     useEffect(()=>{
         window.scrollTo(0,0);
-
-        if(userLoged && allImages){
+        if(userLoged){
             getData();
             setOwner(userLoged.id == id);
-        }else{
             getImages(id)
         }
-    }, [professionals, allImages, id])
+    }, [userLoged, id])
 
     if(loading || !allImages) return <LoadingComponent/>
     if(error) return <h1>{error}</h1>
@@ -60,8 +55,8 @@ const PageProfile = ()=> {
 
     return(
         <ProfileContainer>
-            <PoupupImageComponent props={poupupProps} />
-            <ProfileDataBox owner={owner} img={data.images.filter(img=>img.role==="avatar")[0]?.name || null}>
+            <PoupupImageComponent poupupProps={poupupProps} setPoupupProps={setPoupupProps}/>
+            <ProfileDataBox owner={owner} img={allImages.filter(img=>img.role==="avatar")[0]?.name || null}>
                 <div className="profile__pic"/>
                 <div className="profile__data">
                     <TitleH3 className="data__title data__title--name">
@@ -96,12 +91,13 @@ const PageProfile = ()=> {
                                 profileImage={image.name}
                                 onClick={()=>setPoupupProps({
                                     active: true,
-                                    mainImage: image.name,
+                                    mainImage: image,
                                     arrayOfImages: [...allImages.filter(img=>img.role!=="avatar")]
                                 })}
                             >
                                 <div className="card__picture"/>
                                 <BodyText className="card__desc">{image.description}</BodyText>
+                                <BodyText className="card__desc">{image.price ? `R$ ${image.price},00` : ""}</BodyText>
                             </ImagesBoxCard>
                         )
                     })
