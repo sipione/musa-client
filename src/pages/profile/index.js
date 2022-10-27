@@ -12,6 +12,7 @@ import { UserContext } from "../../common/contexts/userContext";
 import { ImagesContext } from "../../common/contexts/imagesContext";
 import LoadingComponent from "../../components/loading";
 import PoupupImageComponent from "../../components/poup-upImages";
+import { lightColorHex, secondaryColorHex } from "../../common/foundation/variables";
 
 const PageProfile = ()=> {
     const {id} = useParams();
@@ -68,14 +69,16 @@ const PageProfile = ()=> {
                     
                     <div className="data__instagram">
                         <Instagram/>
-                        <a href={`https://www.instagram.com/${data.instagram}/`}><TitleH3 className="data__title">@{data.instagram  || null}</TitleH3></a>
+                        <a href={`https://www.instagram.com/${data.instagram}/`} target="__blank"><TitleH3 className="data__title">@{data.instagram  || null}</TitleH3></a>
                     </div>
                     
                     <TitleH3 className="data__title data__title--about">{data.about  || null}</TitleH3>
                     
                     <TitleH3 className="data__title data__title--func">{data.function?.toLocaleUpperCase()  || null}</TitleH3>
                     
-                    <TitleH3 className="data__title data__title--last">{data.mother ? "mãe" : null}</TitleH3>
+                    {data.mother 
+                    ? <TitleH3 className="data__title data__title--last"> <span style={{background: secondaryColorHex, color: lightColorHex, padding:"0.5% 1.5%", borderRadius: "5px", marginRight: "1vw"}}>X</span>Mãe</TitleH3> 
+                    : null}
 
                     <a className="data__wpp" href={`https://wa.me/55${data.phone}`} target="__blank"><ButtonComponent>ENTAR EM CONTATO</ButtonComponent></a>
                 </div>

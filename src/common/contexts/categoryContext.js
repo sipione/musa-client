@@ -24,7 +24,11 @@ const CategoryContextProvider = ({children})=>{
     }
     
     return(
-        <CategoryContext.Provider value={{categories, categorySelected, setCategorySelected}}>
+        <CategoryContext.Provider value={{
+            categories, 
+            categorySelected, 
+            setCategorySelected
+        }}>
             {children}
         </CategoryContext.Provider>
     )

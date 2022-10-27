@@ -42,7 +42,7 @@ const PoupupImageComponent = (props)=>{
             <div className="poupup__content">
                 <img className="image" src={currentImage.name}/>
                 <BodyText>{currentImage.description}</BodyText>
-                <BodyText>{currentImage.price}</BodyText>
+                <BodyText>{currentImage.price ? `R$ ${currentImage.price},00` : ""}</BodyText>
             </div>
             <TitleH2 className="next" onClick={changeImage}>{">>"}</TitleH2>
         </PoupupImageContainer>

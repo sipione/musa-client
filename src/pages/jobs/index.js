@@ -12,7 +12,7 @@ const PageJobs = ()=> {
     const [hidden, setHidden] = useState(true);
     const {categories, categorySelected, setCategorySelected} = useContext(CategoryContext);
     const {userContextLoading, userLoged, getUsers, professionals, locations, states} = useContext(UserContext);
-    const {allImages, avatars} = useContext(ImagesContext);
+    const { avatars} = useContext(ImagesContext);
     const [page, setPage] = useState(0);
     const [customProfessionals, setCustomProfessionals] = useState(null)
     const [filters, setFilters] = useState({
@@ -51,7 +51,7 @@ const PageJobs = ()=> {
     return(
         <JobsContainer>
             <JobsCategoryIndicator selection={categorySelected}>
-                <BodyText>Categoria selecionada: {categorySelected.label} 
+                <BodyText>Categoria selecionada: {categorySelected.label || categorySelected} 
                 <span onClick={()=>{
                     setCategorySelected(false)
                     setFilters({
@@ -116,7 +116,7 @@ const PageJobs = ()=> {
                                 });
                             }}
                         >
-                            <option value={null}>Cidade</option>
+                            <option value="">Cidade</option>
                             {
                                 filters.state
                                 ? locations.map(location=>{

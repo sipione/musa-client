@@ -1,5 +1,5 @@
 import { HeaderContainer, HeaderMobileNavegation, HeaderNavigation, HeaderResearch, HeaderTitle } from "./style";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { BodyText, TitleH3 } from "../../common/foundation/typography"; 
 import {ReactComponent as Logo} from "../../assets/images/logo.svg";
 import {ReactComponent as Search} from "../../assets/images/search-icon.svg";
@@ -7,11 +7,14 @@ import {ReactComponent as Menu} from "../../assets/images/menu.svg";
 import { useContext, useState } from "react";
 import { UserContext } from "../../common/contexts/userContext";
 import ButtonComponent from "../button";
+import { CategoryContext } from "../../common/contexts/categoryContext";
 
 
 const HeaderComponent = ()=>{
     const [open, setOpen] = useState(false);
     const {userLoged} = useContext(UserContext);
+    const {setCategorySelected} = useContext(CategoryContext);
+    const navigation = useNavigate();
 
     return (
         <HeaderContainer open={open}>
@@ -24,7 +27,7 @@ const HeaderComponent = ()=>{
 
                 <div>
                     {userLoged.name
-                    ? <TitleH3>Olá, {userLoged.name.split(" ")[0].toUpperCase()}</TitleH3>
+                    ? null
                     : <Link to="login"><TitleH3 aria-label="logout" className="login">Login</TitleH3></Link>}
                 </div>
                 
@@ -51,7 +54,16 @@ const HeaderComponent = ()=>{
             </HeaderMobileNavegation>
 
             <HeaderResearch>
-                <input type="search" placeholder="Busca"/>
+                <input 
+                    onKeyDown={event=>{
+                        if(event.key == "Enter"){
+                            setCategorySelected(event.target.value)
+                            event.target.value = ""
+                            navigation("/jobs")
+                        }
+                    }} 
+                    type="search" 
+                    placeholder="Busca"/>
                 <Search className="search"/>
             </HeaderResearch>
 

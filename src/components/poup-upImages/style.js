@@ -30,7 +30,7 @@ export const PoupupImageContainer = styled.section`
     }
 
     .poupup__content{
-        max-height: 100%;
+        max-height: 100vh;
         max-width: 80%;
         display: flex;
         flex-direction: column;
@@ -39,7 +39,7 @@ export const PoupupImageContainer = styled.section`
         gap: 2.5vh;
         
         .image{
-            max-height: 80%;
+            max-height: 90vh;
             max-width: 80%;
             border-radius: 5px;
         }
