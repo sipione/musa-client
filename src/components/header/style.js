@@ -70,7 +70,7 @@ export const HeaderTitle = styled.div`
             width: 60%;
         }
 
-        div:not[.comunidade]{
+        div:not(.comunidade){
             display: none;
         }
 

@@ -16,7 +16,7 @@ const PageRegister = ()=> {
     const [loading, setLoading] = useState(null);
     const [error, setError] = useState(null);
     const { setUserLoged } = useContext(UserContext);
-
+console.log(inputs);
     useEffect(()=>{
         window.scrollTo(0,0);
 
@@ -127,7 +127,7 @@ const PageRegister = ()=> {
                         type="phone" 
                         placeholder="Digite seu telefone com DDD" 
                         required
-                        onChange={(event)=>setInputs({...inputs, phone: event.target.value})}
+                        onChange={(event)=>setInputs({...inputs, phone: event.target.value.replaceAll(/[^0-9]/g, "")})}
                     />
 
                     <ContainerInputRadioBox>

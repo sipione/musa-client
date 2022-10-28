@@ -96,6 +96,10 @@ export const ContainerInputRadioBox = styled.div`
         gap: 0.25vw;
     }
 
+    label{
+        cursor: pointer;
+    }
+
     span{
         text-align: center;
         color: ${lightColorHex};

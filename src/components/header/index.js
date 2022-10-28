@@ -27,7 +27,7 @@ const HeaderComponent = ()=>{
 
                 <div>
                     {userLoged.name
-                    ? null
+                    ? <TitleH3>Olá, {userLoged.name.split(" ")[0].toUpperCase()}</TitleH3>
                     : <Link to="login"><TitleH3 aria-label="logout" className="login">Login</TitleH3></Link>}
                 </div>
                 

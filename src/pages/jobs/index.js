@@ -83,7 +83,9 @@ const PageJobs = ()=> {
                     </div>
 
                     <div className="filters01__filter--location">
-                        <select id="state" onChange={event=>{
+                        <select 
+                            id="state" 
+                            onChange={event=>{
                             if(!event.target.value){
                                 return setFilters({
                                     ...filters,
