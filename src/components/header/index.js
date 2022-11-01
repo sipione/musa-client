@@ -20,7 +20,7 @@ const HeaderComponent = ()=>{
         <HeaderContainer open={open}>
             <HeaderTitle>
                 <div className="comunidade">
-                    <ButtonComponent> <BodyText>Participe da nossa COMUNIDADE</BodyText></ButtonComponent>
+                    <a href="https://www.facebook.com/groups/musamulheressa" target="__blank"><ButtonComponent> <BodyText>Participe da nossa COMUNIDADE</BodyText></ButtonComponent></a>
                 </div>
 
                 <Link to="/" className="logo"><Logo /></Link>
