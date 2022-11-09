@@ -115,6 +115,7 @@ export const ProfileDataBox = styled.div`
 
         .data__title--last{
             margin-bottom: 1.5vh;
+            width: 100%;
         }
     }
 
