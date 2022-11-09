@@ -62,10 +62,10 @@ const PageProfile = ()=> {
                 <div className="profile__data">
                     <TitleH3 className="data__title data__title--name">
                         {data.name.toUpperCase()}  
-                        <Link to={`/profile/edit/${id}`} className="title--name__link"><Edit/></Link> 
+                        <Link to={`/profile/edit/${id}`} className="title--name__link"><Edit/> <BodyText>Editar perfil</BodyText></Link> 
                     </TitleH3>
 
-                    <a href={`https://${data.site}`} target="__blank"><TitleH3 className="data__title">{data.site || null}</TitleH3></a>
+                    <a href={`https://${data.site}`} target="__blank"><TitleH3 className="data__title data__title--site">{data.site || null}</TitleH3></a>
                     
                     <div className="data__instagram">
                         <Instagram/>
@@ -80,7 +80,7 @@ const PageProfile = ()=> {
                     ? <TitleH3 className="data__title data__title--last"> <span style={{background: secondaryColorHex, color: lightColorHex, padding:"0.5% 1.5%", borderRadius: "5px", marginRight: "1vw"}}>X</span>Mãe</TitleH3> 
                     : null}
 
-                    <a className="data__wpp" href={`https://wa.me/55${data.phone}`} target="__blank"><ButtonComponent>ENTAR EM CONTATO</ButtonComponent></a>
+                    <a className="data__wpp" href={`https://wa.me/55${data.phone}`} target="__blank"><ButtonComponent>ENTRAR EM CONTATO</ButtonComponent></a>
                 </div>
             </ProfileDataBox>
 

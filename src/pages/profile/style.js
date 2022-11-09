@@ -6,6 +6,7 @@ export const ProfileContainer = styled.section`
     display: flex;
     flex-direction: column;
     padding: 0 2.5vw;
+    position: relative;
 
     .title-images{
         color: ${darkColorHex};
@@ -45,6 +46,7 @@ export const ProfileDataBox = styled.div`
         padding-right: 2.5vw;
         display: flex;
         flex-direction: column;
+        align-items: flex-start;
         gap: 0.5vh;
 
         .data__instagram{
@@ -76,6 +78,13 @@ export const ProfileDataBox = styled.div`
             transition: 0.5s;
         }
 
+        .data__title--site{
+            
+            :hover{
+                    color: ${secondaryColorHex};
+            }
+        }
+
         .data__title--name{
             font-weight: 600;
             display: flex;
@@ -83,10 +92,24 @@ export const ProfileDataBox = styled.div`
 
             .title--name__link{
                 display: ${props=> props.owner ? "inline" : "none"};
+                display: flex;
+                align-items: center;
+                gap: 1vw;
+                text-decoration: none;
+                color: ${darkColorHex};
+                transition: 500ms;
+                position: absolute;
+                top: 2.5vh;
+                right: 5vw;
+
 
                 svg{
                     fill: ${secondaryColorHex};
                     width: 1.5vw;
+                }
+
+                :hover{
+                    color: ${secondaryColorHex};
                 }
             }
         }

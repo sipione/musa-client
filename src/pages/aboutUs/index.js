@@ -32,7 +32,19 @@ const AboutPage = ()=>{
 
             <AboutContent id="sobre">
                 <TitleH2>Sobre nós</TitleH2>
-                <BodyText>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.</BodyText>
+                <BodyText>A Mulheres SA ( MUSA) é uma plataforma que conecta empreendedoras a mulheres que desejam comprar seus produtos ou serviços,  com o objetivo de fomentar o empreendedorismo feminino e a realização de negócios entre mulheres.</BodyText>
+
+                <BodyText>Criada por uma mulher, mãe e empreendedora, a MUSA nasce para ser mais que uma plataforma de negócios, sua missão é criar uma grande comunidade de mulheres que negociam, aprendem e prosperam entre si.</BodyText>
+
+                <BodyText>As empreendedoras cadastradas na MUSA podem criar um perfil onde é possível incluir todos os dados de contatos e fotos de seu trabalho. </BodyText>
+
+                <BodyText>Para as mulheres que desejam comprar produtos ou serviços, a MUSA é uma grande vitrine, recheada de opções.</BodyText>
+
+                <BodyText>A MUSA quer fortalecer o empreendedorismo materno, temos um filtro específico para você que deseja comprar de mães empreendedoras.</BodyText>
+
+                <BodyText>Em nossa comunidade, é possível participar de lives, palestras, interagir com outras mulheres, compartilhando aprendizados e desafios da jornada empreendedora.</BodyText>
+
+                <BodyText>MUSA, conectando mulheres e negócios!</BodyText>
             </AboutContent>
 
             <AboutContent id="politica">
@@ -78,7 +90,33 @@ const AboutPage = ()=>{
 
             <AboutContent id="termos">
                 <TitleH2>Termos de uso</TitleH2>
-                <BodyText>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.</BodyText>
+
+                <BodyText>Oi MUSA! </BodyText>
+                <BodyText>Que bom que você está aqui!</BodyText>
+                <BodyText>Bem-vinda ao nosso termo de uso e instruções gerais, vamos lá?</BodyText>
+
+                <TitleH3>O que é a MUSA? </TitleH3>
+                <BodyText>A MUSA é uma plataforma que conecta mulheres para facilitar a realização de negócios. </BodyText>
+                <BodyText>Nossa proposta é te aproximar de uma mulher que esteja mais perto de você, a fim de incentivar os negócios femininos.  </BodyText>
+
+                <TitleH3>COMO FUNCIONAMOS:</TitleH3>
+                <BodyText>Aqui nós oferecemos um espaço online que permita a aproximação de mulheres e a realização de negócios. Nosso diferencial é propiciar que mulheres que desejam comprar de outras mulheres tenham onde buscar essa informação. </BodyText>
+                <BodyText>Para participar da MUSA é importante que você saiba de algumas considerações: </BodyText>
+                <BodyText>A criação do perfil é gratuita. </BodyText>
+                <BodyText>Nós somos responsáveis pelo espaço. </BodyText>
+                <BodyText>A gestão do perfil, as fotos publicadas, os preços praticados, os contatos disponibilizados são de responsabilidade das anunciantes. </BodyText>
+                <BodyText>A MUSA não vende nenhum produto ou serviço, não interferimos nos preços praticados, e não é possível realizar pagamentos dentro de nossa plataforma. Nosso propósito é dar visibilidade para o negócio, toda a negociação será feita diretamente com a fornecedora do serviço, assim como as tratativas de pagamento. </BodyText>
+                <BodyText>Em caso de qualquer tipo de problema, a anunciante deverá ser contactada. </BodyText>
+                <BodyText>A veracidade e a exatidão das informações sobre os produtos e serviços apresentados pelas anunciantes são de responsabilidade das mesmas. </BodyText>
+                <BodyText>A MUSA oferece filtros para possibilitar que você negocie especificamente com mães, fortalecer o empreendedorismo materno é também uma de nossas bandeiras. </BodyText>
+
+                <TitleH3>O QUE NÃO PODE SER FEITO: </TitleH3>
+                <BodyText>Anúncios que violem a legislação vigente, oferecendo produtos ou serviços proibidos por lei.</BodyText>
+                <BodyText>Comunicação ou transmissão de informações que contenham qualquer tipo de discriminação.</BodyText>
+                <BodyText>Conteúdos de cunho obsceno ou ofensivo.</BodyText>
+
+                <TitleH3>SE VOCÊ PRECISAR DE ALGUMA INFORMAÇÃO, OU PRECISAR ESCLARECER DÚVIDAS, NOS ACIONE EM: </TitleH3>
+                <BodyText>contato@mulheressa.com.br</BodyText>
             </AboutContent>
 
             <AboutFaqBox id="faq" hide={hide}>

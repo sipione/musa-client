@@ -26,7 +26,7 @@ const FooterComponent = ()=>{
                 <FlexBoxContentCenter bg={bgSocial}>
                     <TitleH3 className="flex-box__title">Acesse nossa comunidade no facebook</TitleH3>
 
-                    <button className="flex-box__button"><TitleH3 className="button__title">CLIQUE AQUI</TitleH3></button>
+                    <a href={userLoged ? "https://www.facebook.com/groups/musamulheressa" : "#/login"} target="__blank" className="flex-box__button"><TitleH3 className="button__title">CLIQUE AQUI</TitleH3></a>
                 </FlexBoxContentCenter>
             </FooterFlexBox>
 

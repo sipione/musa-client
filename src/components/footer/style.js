@@ -44,8 +44,12 @@ export const FlexBoxContentCenter = styled.div`
         margin-top: 2vh;
         cursor: pointer;
         transition: 0.5s;
-
+        text-decoration: none;
+        text-align: center;
+        background-color: ${lightColorHex};
+        
         .button__title{
+            color:${secondaryColorHex};
             font-weight: 600;
         }
 

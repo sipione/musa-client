@@ -69,7 +69,7 @@ const PageJobs = ()=> {
                 <div className="filters01">
                     <div className="filters01__filter--mother">
                         <label htmlFor="mother">
-                            <BodyText>Mother</BodyText>
+                            <BodyText>Mãe</BodyText>
                         </label>
                         <input onChange={event => {
                             setFilters({

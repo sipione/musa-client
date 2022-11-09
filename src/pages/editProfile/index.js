@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { BodyText, TitleH2 } from "../../common/foundation/typography";
 import ButtonComponent from "../../components/button";
 import { EditProfileContainer, EditProfileForm, FormPortfolio, PortfolioCards } from "./style";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { storage } from "../../firebase";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { UserContext } from  "../../common/contexts/userContext";
@@ -41,6 +41,7 @@ const EditProfilePage =  ()=>{
         }
     ]);
     const [portfolioToEdit, setPortfolioToEdit] = useState({})
+    const navigate = useNavigate()
     
     useEffect(()=>{
         window.scrollTo(0,0);
@@ -141,6 +142,8 @@ const EditProfilePage =  ()=>{
                 url: `${process.env.REACT_APP_BASE_URL}/users/${id}`,
                 data: userToEdit
             })
+            alert("Seu perfil foi atualizado com sucesso!");
+            navigate(`/profile/${id}`)
         }catch(err){
             alert(err)
         }
@@ -194,7 +197,7 @@ const EditProfilePage =  ()=>{
         }
     }
 
-    if(!userToEdit || !userImages) return <LoadingComponent/>
+    if(!userToEdit || !userImages || loading) return <LoadingComponent/>
 
     if(!userToEdit) return <h1>Nada pra editar...</h1>
 
@@ -335,10 +338,10 @@ const EditProfilePage =  ()=>{
 
                         <input 
                             className="medium"
-                            defaultValue={userToEdit.instagram} 
+                            defaultValue={"@"+userToEdit.instagram} 
                             type="text" 
                             placeholder="Instagram"
-                            onChange={event=>setUserToEdit({...userToEdit, instagram: event.target.value})}
+                            onChange={event=>setUserToEdit({...userToEdit, instagram: event.target.value.replaceAll("@", "")})}
                         />
                     </div>
 
@@ -411,8 +414,6 @@ const EditProfilePage =  ()=>{
                             )
                         })}
                     </FormPortfolio>
-                    
-                    <ButtonComponent>ATUALIZAR PORTFOLIO</ButtonComponent>
                 </form>
             </EditProfileForm>
         </EditProfileContainer>
