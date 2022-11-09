@@ -91,8 +91,7 @@ export const ProfileDataBox = styled.div`
             gap: 2vw;
 
             .title--name__link{
-                display: ${props=> props.owner ? "inline" : "none"};
-                display: flex;
+                display: ${props => props.owner ? "flex" : "none" };
                 align-items: center;
                 gap: 1vw;
                 text-decoration: none;

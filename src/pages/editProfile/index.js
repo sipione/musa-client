@@ -45,6 +45,12 @@ const EditProfilePage =  ()=>{
     
     useEffect(()=>{
         window.scrollTo(0,0);
+        if(userLoged.id != id){
+            alert("Você não pode editar o perfil de outra pessoa, se voltar a tentar será bloqueado!")
+            return navigate("/")
+        }
+
+        console.log(userLoged.id != id)
         if(userLoged.jwt){
             getUser()
         }
@@ -409,7 +415,6 @@ const EditProfilePage =  ()=>{
                                         }} 
                                     />
                                     </div>
-
                                 </PortfolioCards>
                             )
                         })}

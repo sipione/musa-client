@@ -62,7 +62,7 @@ const PageProfile = ()=> {
                 <div className="profile__data">
                     <TitleH3 className="data__title data__title--name">
                         {data.name.toUpperCase()}  
-                        <Link to={`/profile/edit/${id}`} className="title--name__link"><Edit/> <BodyText>Editar perfil</BodyText></Link> 
+                        <Link to={owner ? `/profile/edit/${id}` : "#"} className="title--name__link"><Edit/> <BodyText>Editar perfil</BodyText></Link> 
                     </TitleH3>
 
                     <a href={`https://${data.site}`} target="__blank"><TitleH3 className="data__title data__title--site">{data.site || null}</TitleH3></a>
