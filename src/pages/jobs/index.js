@@ -164,7 +164,7 @@ const PageJobs = ()=> {
                     
                     return (
                         <Link to={userLoged ? `/profile/${user.id}` : "#"} onClick={event=> userLoged ? null : alert("você precisa estar logado para acessar os perfís")} >
-                            <OfferBoxContent key={user.id} src={userAvatar}>
+                        <OfferBoxContent key={user.id} src={userAvatar}>
                             <div className="img"/>
 
                             <ContentText>

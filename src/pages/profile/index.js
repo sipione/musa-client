@@ -65,12 +65,15 @@ const PageProfile = ()=> {
                         <Link to={owner ? `/profile/edit/${id}` : "#"} className="title--name__link"><Edit/> <BodyText>Editar perfil</BodyText></Link> 
                     </TitleH3>
 
-                    <a href={`https://${data.site}`} target="__blank"><TitleH3 className="data__title data__title--site">{data.site || null}</TitleH3></a>
-                    
-                    <div className="data__instagram">
-                        <Instagram/>
-                        <a href={`https://www.instagram.com/${data.instagram}/`} target="__blank"><TitleH3 className="data__title">@{data.instagram  || null}</TitleH3></a>
+                    <div className="data__web">
+                        <a href={`https://${data.site}`} target="__blank"><TitleH3 className="data__title data__title--site">{data.site || null}</TitleH3></a>
+                        
+                        <div className="data__instagram">
+                            <Instagram/>
+                            <a href={`https://www.instagram.com/${data.instagram}/`} target="__blank"><TitleH3 className="data__title">@{data.instagram  || null}</TitleH3></a>
+                        </div>
                     </div>
+
                     
                     <TitleH3 className="data__title data__title--about">{data.about  || null}</TitleH3>
                     

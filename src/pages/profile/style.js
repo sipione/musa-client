@@ -10,7 +10,6 @@ export const ProfileContainer = styled.section`
 
     .title-images{
         color: ${darkColorHex};
-        font-weight: 500;
     }
 
     .unloged-link{
@@ -78,6 +77,11 @@ export const ProfileDataBox = styled.div`
             transition: 0.5s;
         }
 
+        .data__web{
+            display: flex;
+            gap: 2.5vw;
+        }
+
         .data__title--site{
             
             :hover{
@@ -89,6 +93,7 @@ export const ProfileDataBox = styled.div`
             font-weight: 600;
             display: flex;
             gap: 2vw;
+            line-height: 90%;
 
             .title--name__link{
                 display: ${props => props.owner ? "flex" : "none" };
@@ -113,6 +118,12 @@ export const ProfileDataBox = styled.div`
             }
         }
 
+        .data__title--about{
+            font-weight: 200;
+            line-height: 110%;
+            margin: 2.5vh 0;
+        }
+
         .data__title--last{
             margin-bottom: 1.5vh;
             width: 100%;
@@ -135,6 +146,11 @@ export const ProfileDataBox = styled.div`
 
             .data__title--func, .data__title--last, .data__title--about{
                 align-self: start;
+                font-weight: 200;
+            }
+
+            .data__web{
+                flex-direction: column;
             }
 
             .data__instagram{

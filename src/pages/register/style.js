@@ -107,6 +107,7 @@ export const ContainerInputRadioBox = styled.div`
         height:25px;
         border-radius:5px;
         transition: 0.5s;
+        border: 0.5px solid ${secondaryColorHex};
     }
 
     input{

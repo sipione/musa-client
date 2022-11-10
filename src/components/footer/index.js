@@ -26,7 +26,7 @@ const FooterComponent = ()=>{
                 <FlexBoxContentCenter bg={bgSocial}>
                     <TitleH3 className="flex-box__title">Acesse nossa comunidade no facebook</TitleH3>
 
-                    <a href={userLoged ? "https://www.facebook.com/groups/musamulheressa" : "#/login"} target="__blank" className="flex-box__button"><TitleH3 className="button__title">CLIQUE AQUI</TitleH3></a>
+                    <a href={userLoged ? "https://www.facebook.com/groups/musamulheressa" : "#/login"} target={userLoged ? "__blank" : "_self"} className="flex-box__button"><TitleH3 className="button__title">CLIQUE AQUI</TitleH3></a>
                 </FlexBoxContentCenter>
             </FooterFlexBox>
 
@@ -57,12 +57,8 @@ const FooterComponent = ()=>{
                 </FlexBoxContentLeft>
 
                 <FlexBoxContentLeft className="flex-box--media">
-                    <BodyText className="flex-box__text">Inscreva-se em nossa newsletter</BodyText>
-
-                    <input className="flex-box__input" placeholder="Digite o seu e-mail"/>
-
                     <div className="icon-div">
-                        <Facebook className="icon-div__svg"/>
+                        <a href={userLoged ? "https://www.facebook.com/groups/musamulheressa" : "#/login"} target={userLoged ? "__blank" : "_self"}><Facebook className="icon-div__svg"/></a>
                         <Instagram className="icon-div__svg"/>
                     </div>
                     

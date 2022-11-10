@@ -70,7 +70,7 @@ const PageHome = ()=> {
                         <Link onClick={()=> userLoged ? null:alert("você precisa logar para vizualizar o perfil")} to={userLoged ? `/profile/${item.id}`: "#"}>
                         <CarrousselCard image={avatars?.filter(img=> img.user_id == item.id)[0]?.name}>
                             <div className='card-title'>
-                                <BodyText className='card-title__text'>{item.name.toUpperCase()}</BodyText>
+                                <BodyText className='card-title__text'>{item.name.split(" ").at().toUpperCase() + " "+ item.name.split(" ").at(-1).toUpperCase()}</BodyText>
                                 <BodyText className='card-title__text'>{item.function}</BodyText>
                             </div>
                         </CarrousselCard>

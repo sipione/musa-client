@@ -9,6 +9,11 @@ export const FooterContainer = styled.footer`
 export const FooterFlexBox = styled.section`
     display: flex;
     background: ${primaryColorHex};
+
+    .flex-box--media{
+        flex-direction: row;
+
+    }
     
 
     @media screen and (max-width: ${maxMobileScreeenWidth}px){
@@ -72,6 +77,7 @@ export const FlexBoxContentLeft = styled.div`
     display: flex;
     flex-direction: column;
     align-items: start;
+    justify-content: space-evenly;
     gap: 2vh;
 
     .flex-box__nav{
@@ -118,19 +124,9 @@ export const FlexBoxContentLeft = styled.div`
         }
     }
 
-    .flex-box__text{
-        color: ${secondaryColorHex};
-    }
-
-    .flex-box__input{
-        border: none;
-        border-radius: 10px;
-        padding: 2.5%;
-        width: 100%;
-    }
-
     .icon-div{
         display: flex;
+        align-items: center;
         gap: 2.5vw;
     }
 
@@ -143,7 +139,6 @@ export const FlexBoxContentLeft = styled.div`
 
     .logout{
         color: ${secondaryColorHex};
-        align-self: end;
         text-align: right;
         cursor: pointer;
         transition: 0.5s;

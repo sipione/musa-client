@@ -78,8 +78,9 @@ export const HomeCategoriesContainer = styled.div`
         gap:2vh;
 
         .category__title{
-            font-weight: 600;
+            font-weight: 400;
             text-align:center;
+            line-height: 100%;
         }
 
         .category__image{
@@ -116,7 +117,7 @@ export const HomeDescriptionContainer = styled.div`
     text-align: center;
 
     .logo{
-        width: 60%;
+        width: 40%;
         height: auto;
         margin: 5vh 0;
     }

@@ -4,7 +4,7 @@ import { bodyLittleTextFontSize, bodyTextFontSize, maxMomaxMobileScreeenWidth, b
 //TITLES START
  export const TitleH1 = styled.h1`
     font-size: ${titleH1FontSize}vw;
-    font-weight: 700;
+    font-weight: 500;
     color: ${secondaryColorHex};
 
 
@@ -15,7 +15,7 @@ import { bodyLittleTextFontSize, bodyTextFontSize, maxMomaxMobileScreeenWidth, b
 
  export const TitleH2 = styled.h2`
    font-size: ${titleH2FontSize}vw;
-   font-weight: 600;
+   font-weight: 400;
    color: ${secondaryColorHex};
 
    @media screen and (max-width: ${maxMobileScreeenWidth}px){
@@ -25,7 +25,7 @@ import { bodyLittleTextFontSize, bodyTextFontSize, maxMomaxMobileScreeenWidth, b
 
 export const TitleH3 = styled.h3`
    font-size: ${titleH3FontSize}vw;
-   font-weight: 500;
+   font-weight: 400;
    color: ${secondaryColorHex};
 
    @media screen and (max-width: ${maxMobileScreeenWidth}px){

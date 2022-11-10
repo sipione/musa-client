@@ -43,7 +43,7 @@ const PartnershipPage = ()=>{
                 </BodyText>
 
                 <BodyText>
-                    Então preencha o formulário abaixo que entraremos em contato.
+                    Então, preencha o formulário abaixo que entraremos em contato.
                 </BodyText>
             </PartnershipTitles>
 

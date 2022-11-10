@@ -1,6 +1,6 @@
 import { HeaderContainer, HeaderMobileNavegation, HeaderNavigation, HeaderResearch, HeaderTitle } from "./style";
 import { Link, useNavigate } from "react-router-dom";
-import { BodyText, TitleH3 } from "../../common/foundation/typography"; 
+import { BodyLittleText, BodyText, TitleH3 } from "../../common/foundation/typography"; 
 import {ReactComponent as Logo} from "../../assets/images/logo.svg";
 import {ReactComponent as Search} from "../../assets/images/search-icon.svg";
 import {ReactComponent as Menu} from "../../assets/images/menu.svg";
@@ -20,7 +20,7 @@ const HeaderComponent = ()=>{
         <HeaderContainer open={open}>
             <HeaderTitle>
                 <div className="comunidade">
-                    <a href={userLoged ? "https://www.facebook.com/groups/musamulheressa" : "#/login"} target="__blank"><ButtonComponent> <BodyText>Participe da nossa COMUNIDADE</BodyText></ButtonComponent></a>
+                    <a className="comunidade__link" href={userLoged ? "https://www.facebook.com/groups/musamulheressa" : "#/login"} target={userLoged ? "__blank" : "_self"}><ButtonComponent> <BodyLittleText>Participe da nossa COMUNIDADE</BodyLittleText></ButtonComponent></a>
                 </div>
 
                 <Link to="/" className="logo"><Logo /></Link>

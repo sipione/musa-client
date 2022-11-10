@@ -249,7 +249,7 @@ const EditProfilePage =  ()=>{
                                 defaultValue={userToEdit.category}
                                 onChange={event=>setUserToEdit({...userToEdit, category: event.target.value})}
                             >
-                                <option value={null}>escolha uma categoria</option>
+                                <option value={null}>Escolha uma categoria</option>
                                 {categories.map(category=>(
                                     <option 
                                     key={category.name}
@@ -384,7 +384,7 @@ const EditProfilePage =  ()=>{
                                     <div className="portfolio__details">
 
                                     <input 
-                                        placeholder="descrição" defaultValue={userImages.filter(img=>img.role === object.role)[0]?.description} 
+                                        placeholder="Descrição" defaultValue={userImages.filter(img=>img.role === object.role)[0]?.description} 
                                         name={object.role}
                                         onChange={(event)=>{
                                             const obj = portfolioToEdit[object.role] || {};

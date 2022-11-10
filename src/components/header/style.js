@@ -32,7 +32,7 @@ export const HeaderTitle = styled.div`
     }
 
     .logo{
-        width: 30%;
+        width: 20%;
         svg{
             width:90%;
             height: auto;
@@ -40,9 +40,13 @@ export const HeaderTitle = styled.div`
     }
 
     div{
-        width: 20%;
+        width: 15%;
         display: flex;
         justify-content: end;
+
+        .comunidade__link{
+            transform: scale(0.8);
+        }
     }
 
     svg, #facebook{

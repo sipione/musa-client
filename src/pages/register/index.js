@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { ContainerInputRadioBox, RegisterContainer, RegisterForm, RegisterTitles } from "./style";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { BodyText } from "../../common/foundation/typography";
+import { BodyLittleText, BodyText } from "../../common/foundation/typography";
 import ButtonComponent from "../../components/button";
 import { secondaryColorHex } from "../../common/foundation/variables";
 import { UserContext } from "../../common/contexts/userContext";
@@ -79,14 +79,14 @@ console.log(inputs);
                     
                     <input 
                         type="email" 
-                        placeholder="Email" 
+                        placeholder="E-mail" 
                         required
                         onChange={(event)=>setemailPreview(event.target.value)}
                     />
                     
                     <input 
                         type="email" 
-                        placeholder="Confirme o seu email"
+                        placeholder="Confirme o seu e-mail"
                         onChange={(event)=>{
                             if(event.target.value == emailPreview){
                                 setInputs({...inputs, email: event.target.value})
@@ -134,16 +134,16 @@ console.log(inputs);
                         <div>
                             <input defaultChecked id="saller" type="radio" value="saller" name="role"/>
                             <span>X</span>
-                            <label htmlFor="saller">SOU PRESTADORA DE SERVIÇO</label>
+                            <label htmlFor="saller">Sou prestadora de serviço</label>
                         </div>
 
                         <div>
                             <input id="buyer" type="radio" value="buyer" name="role"/>
                             <span>X</span>
-                            <label htmlFor="buyer">QUERO CONTRATAR SERVIÇO</label>
+                            <label htmlFor="buyer">Quero contratar serviço</label>
                         </div>
                     </ContainerInputRadioBox>
-                    <ButtonComponent>FAZER REGISTRO</ButtonComponent>
+                    <ButtonComponent><BodyLittleText>FAZER REGISTRO</BodyLittleText></ButtonComponent>
                 </form>
             </RegisterForm>
 

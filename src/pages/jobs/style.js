@@ -38,6 +38,7 @@ export const JobsFilterBox = styled.div`
     gap: 2vh;
     margin-right: 1vw;
     position: relative;
+    border-radius: 5px;
 
     .filters01{
         display: flex;
@@ -145,7 +146,9 @@ export const OfferBoxContent = styled.div`
     border: 1px solid ${secondaryColorHex};
     background: ${primaryColorHex};
     display: flex;
-    align-items:start;
+    align-items:center;
+    padding: 2.5%;
+    border-radius: 5px;
 
     .img{
         flex-shrink:0;
@@ -174,11 +177,18 @@ export const ContentText = styled.div`
     width: 60%;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    gap: 1.5vh;
 
     .content-text__title{
         color: ${darkColorHex};
         font-weight: 400;
         text-transform: uppercase;
+        line-height: 110%;
+    }
+
+    .content__desc{
+        line-height: 110%;
     }
 
     @media screen and (max-width: ${maxMobileScreeenWidth}px){
