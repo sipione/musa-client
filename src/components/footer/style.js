@@ -137,6 +137,10 @@ export const FlexBoxContentLeft = styled.div`
         transition: 0.5s;        
     }
 
+    .icon-div__svg--insta{
+        display: none;
+    }
+
     .logout{
         color: ${secondaryColorHex};
         text-align: right;

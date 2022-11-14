@@ -59,7 +59,7 @@ const FooterComponent = ()=>{
                 <FlexBoxContentLeft className="flex-box--media">
                     <div className="icon-div">
                         <a href={userLoged ? "https://www.facebook.com/groups/musamulheressa" : "#/login"} target={userLoged ? "__blank" : "_self"}><Facebook className="icon-div__svg"/></a>
-                        <Instagram className="icon-div__svg"/>
+                        <Instagram className="icon-div__svg icon-div__svg--insta"/>
                     </div>
                     
                     {
