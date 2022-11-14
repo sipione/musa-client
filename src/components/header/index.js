@@ -13,8 +13,18 @@ import { CategoryContext } from "../../common/contexts/categoryContext";
 const HeaderComponent = ()=>{
     const [open, setOpen] = useState(false);
     const {userLoged} = useContext(UserContext);
-    const {setCategorySelected} = useContext(CategoryContext);
+    const {setCategorySelected, categories} = useContext(CategoryContext);
     const navigation = useNavigate();
+
+    const researchCategory = (event)=>{
+        if(event.key == "Enter"){
+            const regex = new RegExp(event.target.value, "gim");
+            const {name} = categories.filter(item=>item.label.match(regex))[0] || alert("Categoria não encontrada");
+            setCategorySelected(name);
+            event.target.value = "";
+            navigation("/jobs");
+        }
+    }
 
     return (
         <HeaderContainer open={open}>
@@ -55,13 +65,7 @@ const HeaderComponent = ()=>{
 
             <HeaderResearch>
                 <input 
-                    onKeyDown={event=>{
-                        if(event.key == "Enter"){
-                            setCategorySelected(event.target.value)
-                            event.target.value = ""
-                            navigation("/jobs")
-                        }
-                    }} 
+                    onKeyDown={researchCategory} 
                     type="search" 
                     placeholder="Busca"/>
                 <Search className="search"/>

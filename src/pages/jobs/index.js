@@ -16,7 +16,6 @@ const PageJobs = ()=> {
     const [page, setPage] = useState(0);
     const [customProfessionals, setCustomProfessionals] = useState(null)
     const [filters, setFilters] = useState({
-        category: categorySelected,
         mother: false,
         state: false,
         city: false
@@ -39,7 +38,7 @@ const PageJobs = ()=> {
 
     const handleCustomProfessionals = async ()=>{
         try{
-            const result = await getUsers(page, filters);
+            const result = await getUsers(page, {...filters, category: categorySelected});
             setCustomProfessionals(result);
         }catch(err){
             console.log(err)
@@ -51,7 +50,7 @@ const PageJobs = ()=> {
     return(
         <JobsContainer>
             <JobsCategoryIndicator selection={categorySelected}>
-                <BodyText>Categoria selecionada: {categorySelected.label || categorySelected} 
+                <BodyText>Categoria selecionada: {categories.filter(item=>item.name == categorySelected)[0]?.label} 
                 <span onClick={()=>{
                     setCategorySelected(false)
                     setFilters({
@@ -141,11 +140,7 @@ const PageJobs = ()=> {
                     return(
                         <div 
                             onClick={()=>{
-                                setCategorySelected(category)
-                                setFilters({
-                                    ...filters,
-                                    category: category.name
-                                })
+                                setCategorySelected(category.name)
                             }}
                             key={category.name}
                         >
