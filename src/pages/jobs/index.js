@@ -45,7 +45,7 @@ const PageJobs = ()=> {
         }
     }
 
-    if(!customProfessionals || userContextLoading || !avatars) return <LoadingComponent/>
+    if(!customProfessionals || userContextLoading) return <LoadingComponent/>
 
     return(
         <JobsContainer>

@@ -17,7 +17,7 @@ const PageHome = ()=> {
     const {avatars} = useContext(ImagesContext);
     window.scrollTo(0,0);
 
-    if(!avatars) return <LoadingComponent/>
+
 
     return(
         <HomeContainer>
