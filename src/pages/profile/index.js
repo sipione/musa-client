@@ -82,7 +82,7 @@ const PageProfile = ()=> {
                     {data.mother 
                     ? <TitleH3 className="data__title data__title--last"> <span style={{background: secondaryColorHex, color: lightColorHex, padding:"0.5% 1.5%", borderRadius: "5px", marginRight: "1vw"}}>X</span>Mãe</TitleH3> 
                     : null}
-
+                    
                     <a className="data__wpp" href={`https://wa.me/55${data.phone}`} target="__blank"><ButtonComponent>ENTRAR EM CONTATO</ButtonComponent></a>
                 </div>
             </ProfileDataBox>

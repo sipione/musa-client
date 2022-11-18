@@ -42,15 +42,15 @@ const EditProfilePage =  ()=>{
     ]);
     const [portfolioToEdit, setPortfolioToEdit] = useState({})
     const navigate = useNavigate()
-    
+
     useEffect(()=>{
         window.scrollTo(0,0);
-        if(userLoged.id != id){
+
+        if(userLoged.id && userLoged.id != id){
             alert("Você não pode editar o perfil de outra pessoa, se voltar a tentar será bloqueado!")
             return navigate("/")
         }
 
-        console.log(userLoged.id != id)
         if(userLoged.jwt){
             getUser()
         }
@@ -215,12 +215,14 @@ const EditProfilePage =  ()=>{
                 <form onSubmit={event => {event.preventDefault(); editProfile(event)}}>
                     <div className="fieldsetFirst">
                         <input
+                            id="avatar"
                             type="file"
                             className="big"
                             name= "avatar"
                             accept="image/png, image/jpeg, image/webp"
                             onChange={event=>{uploadAvatar(event)}}
                         />
+                        <label className="label--avatar" htmlFor="avatar">Clique aqui para escolher imagem de perfil</label>
                         <img
                             className="small"
                             src={userImages.filter(img=>img.role === "avatar")[0] ? userImages.filter(img=>img.role === "avatar")[0]?.name : require("../../assets/images/default_avatar.webp")}
@@ -233,6 +235,7 @@ const EditProfilePage =  ()=>{
                         >
                         X</span>
                     </div>
+                    
                     <div className="fieldset">
                         <input 
                             className="big"
@@ -263,11 +266,12 @@ const EditProfilePage =  ()=>{
 
                     <div className="fieldset">
                         <input 
-                            defaultValue={userToEdit.phone} type="phone" 
+                            value={userToEdit.phone}
                             placeholder="Digite seu telefone com DDD"
                             className="small" 
                             required
-                            onChange={event=>setUserToEdit({...userToEdit, phone: event.target.value})}
+                            maxLength="11"
+                            onChange={event=>setUserToEdit({...userToEdit, phone: event.target.value.replaceAll(/[^0-9]/g, "")})}
                         />
                         <div 
                             className="input--checkbox small" 

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { maxMobileScreeenWidth, secondaryColorHex, titleH2FontSize } from "../../common/foundation/variables";
+import { lightColorHex, maxMobileScreeenWidth, secondaryColorHex, titleH2FontSize } from "../../common/foundation/variables";
 
 
 export const EditProfileContainer =  styled.section`
@@ -28,8 +28,23 @@ export const EditProfileForm = styled.div`
             border: none;
             position: relative;
 
-            input{
+            #avatar{
+                display:none;
+            }
+
+            .label--avatar{
                 width: 70%;
+                text-align: center;
+                border: 1px solid ${secondaryColorHex};
+                border-radius: 5px;
+                padding: 2.5vh 0;
+                transition: 500ms;
+                cursor: pointer;
+
+                :hover{
+                    color: ${lightColorHex};
+                    background-color: ${secondaryColorHex};
+                }
             }
 
             img{
@@ -106,7 +121,7 @@ export const EditProfileForm = styled.div`
 
             .fieldsetFirst{
 
-                input{
+                .label--avatar{
                     width: 50%;
                 }
     
