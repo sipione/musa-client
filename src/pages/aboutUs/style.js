@@ -68,6 +68,7 @@ export const FaqBoxContent = styled.div`
     padding: 1vh 2.5vw;
     background: ${secondaryColorHex};
     color: ${lightColorHex};
+    display: none;
 
     .content__title{
         cursor: pointer;
