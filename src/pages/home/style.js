@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { darkColorRgba, secondaryColorHex, maxMobileScreeenWidth, primaryColorHex, darkColorHex } from "../../common/foundation/variables";
-import banner from "../../assets/images/banner-top.webp";
+import banner from "../../assets/images/banner.png";
 
 export const HomeContainer = styled.section`
     width: 100%;
@@ -8,10 +8,17 @@ export const HomeContainer = styled.section`
     flex-direction: column;
 
     .banner-top{
-        height: 45vh;
+        height: 60vh;
         width:100%;
-        background: url(${banner}) center / contain no-repeat;
-        transform: translateY(-5%);
+        background: #E9B9BC;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        svg{
+            height: 80%;
+            width: auto;
+        }
     }
 
     .separator{
@@ -20,7 +27,7 @@ export const HomeContainer = styled.section`
         justify-content: center;
         align-items: center;
         gap: 5vw;
-        margin-top: -5vh;
+
 
         .separator__span{
             width: 20%;

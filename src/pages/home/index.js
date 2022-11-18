@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { BodyText, TitleH2 } from "../../common/foundation/typography";
 import { CarrousselCard, HomeCarrousselContainer, HomeCategoriesContainer, HomeContainer, HomeDescriptionContainer } from "./style";
 import {ReactComponent as Logo} from "../../assets/images/logo.svg";
+import {ReactComponent as Logo2} from "../../assets/images/logo2.svg";
 import users from "../../assets/json/users.json";
 import { useContext, useState } from 'react';
 import { CategoryContext } from '../../common/contexts/categoryContext';
@@ -20,7 +21,9 @@ const PageHome = ()=> {
 
     return(
         <HomeContainer>
-            <div className="banner-top"/>
+            <div className="banner-top">
+                <Logo2/>
+            </div>
 
             <div className="separator">
                 <span className="separator__span"/>
