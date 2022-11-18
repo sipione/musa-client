@@ -47,7 +47,7 @@ export const AboutFaqBox = styled.div`
     width: 95%;
     border-radius: 10px;
     border: 2px solid ${secondaryColorHex};
-    display: flex;
+    display: none;
     flex-direction: column;
 
     .faq-title{
@@ -68,7 +68,6 @@ export const FaqBoxContent = styled.div`
     padding: 1vh 2.5vw;
     background: ${secondaryColorHex};
     color: ${lightColorHex};
-    display: none;
 
     .content__title{
         cursor: pointer;
