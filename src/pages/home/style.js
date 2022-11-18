@@ -47,12 +47,9 @@ export const HomeContainer = styled.section`
     @media screen and (max-width: ${maxMobileScreeenWidth}px){
         .banner-top{
             height: 35vh;
-            background: url(${banner}) center / contain no-repeat;
-            transform: translateY(-12.5%);
         }
         
         .separator{
-            margin-top: -7.5vh;
             margin-bottom: 5vh;
         }
 
