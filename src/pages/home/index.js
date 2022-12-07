@@ -5,7 +5,7 @@ import { CarrousselCard, HomeCarrousselContainer, HomeCategoriesContainer, HomeC
 import {ReactComponent as Logo} from "../../assets/images/logo.svg";
 import {ReactComponent as Logo2} from "../../assets/images/logo2.svg";
 import users from "../../assets/json/users.json";
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { CategoryContext } from '../../common/contexts/categoryContext';
 import LoadingComponent from '../../components/loading';
 import { UserContext } from '../../common/contexts/userContext';
@@ -71,7 +71,7 @@ const PageHome = ()=> {
 
                     return (
                         <Link onClick={()=> userLoged ? null:alert("você precisa logar para vizualizar o perfil")} to={userLoged ? `/profile/${item.id}`: "#"}>
-                        <CarrousselCard image={avatars?.filter(img=> img.user_id == item.id)[0]?.name}>
+                        <CarrousselCard image={avatars ? avatars?.filter(img=> img.user_id == item.id)[0]?.name : ""}>
                             <div className='card-title'>
                                 <BodyText className='card-title__text'>{item.name.split(" ").at().toUpperCase() + " "+ item.name.split(" ").at(-1).toUpperCase()}</BodyText>
                                 <BodyText className='card-title__text'>{item.function}</BodyText>

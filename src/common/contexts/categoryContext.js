@@ -13,14 +13,18 @@ const CategoryContextProvider = ({children})=>{
     }, [])
 
     const getCategories = async ()=>{
-        const config = {
-            method: 'get',
-            url: `${process.env.REACT_APP_BASE_URL}/categories`,
-            headers: { }
-        };
-
-        const response = await axios(config);
-        setCategories([...response.data]);
+        try{
+            const config = {
+                method: 'get',
+                url: `${process.env.REACT_APP_BASE_URL}/categories`,
+                headers: { }
+            };
+            
+            const response = await axios(config);
+            setCategories([...response.data]);
+        }catch(err){
+            console.log(err)
+        }
     }
     
     return(

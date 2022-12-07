@@ -20,6 +20,31 @@ const UserContextPrivider = ({children})=>{
         setUserContextLoading(false)
     }, [])
 
+    const getAllUsers = async(page=0, options, jwt) => {
+        try{
+            const response =  await axios.request({
+                method: "get",
+                url: `${process.env.REACT_APP_BASE_URL}/users/all`,
+                headers:{
+                    "authorization": jwt
+                }
+            });
+
+            return response.data
+
+        }catch(err){
+            console.log(err)
+        }
+    }
+
+    const getNotProfessionalUsers = ()=>{
+        try{
+
+        }catch{
+
+        }
+    }
+
     const getUserById = async(id, jwt)=>{
         try{
             const user =  await axios.request({
@@ -39,18 +64,18 @@ const UserContextPrivider = ({children})=>{
     }
 
     const seedProfessionals = async()=>{
-        const profiles = await getUsers(0, {});
+        const profiles = await getProfessionals(0, {});
         setProfessionals(profiles);    
     }
 
-    const getUsers = async(page=0, {category, mother, state, city})=>{
+    const getProfessionals = async(page=0, options)=>{
 
         let headers = {
             page, 
-            category: category ? category : false,
-            mother: mother ? true : false,
-            state: state ? state : false,
-            city: city ? city : false 
+            category: options.category ? options.category : false,
+            mother: options.mother ? true : false,
+            state: options.state ? options.state : false,
+            city: options.city ? options.city : false
         };
 
 
@@ -117,7 +142,8 @@ const UserContextPrivider = ({children})=>{
             professionals, 
             userLoged, 
             setUserLoged, 
-            getUsers
+            getProfessionals,
+            getAllUsers
         }}>
             {children}
         </UserContext.Provider>

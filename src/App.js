@@ -1,8 +1,9 @@
-import {BrowserRouter, HashRouter, Route, Routes} from 'react-router-dom';
+import {HashRouter, Route, Routes} from 'react-router-dom';
 import GlobalStyle from './common/foundation/globalStyle';
 import FooterComponent from './components/footer';
 import HeaderComponent from './components/header';
 import AboutPage from './pages/aboutUs';
+import PageAdmin from './pages/admin';
 import ChangePasswordPage from './pages/changePassword';
 import EditProfilePage from './pages/editProfile';
 import PageError404 from './pages/error404';
@@ -32,6 +33,7 @@ function App() {
         <Route path='/profile/:id' element={<PageProfile/>}/>
         <Route path='/profile/edit/:id' element={<EditProfilePage/>}/>
         <Route path='/change/:token' element={<ChangePasswordPage/>}/>
+        <Route path='/admin' element={<PageAdmin/>}/>
         <Route path='*' element={<PageError404/>}/>
       </Routes>
       <FooterComponent/>

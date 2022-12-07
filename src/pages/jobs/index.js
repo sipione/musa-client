@@ -11,7 +11,7 @@ import LoadingComponent from "../../components/loading";
 const PageJobs = ()=> {
     const [hidden, setHidden] = useState(true);
     const {categories, categorySelected, setCategorySelected} = useContext(CategoryContext);
-    const {userContextLoading, userLoged, getUsers, professionals, locations, states} = useContext(UserContext);
+    const {userContextLoading, userLoged, getProfessionals, professionals, locations, states} = useContext(UserContext);
     const { avatars} = useContext(ImagesContext);
     const [page, setPage] = useState(0);
     const [customProfessionals, setCustomProfessionals] = useState(null)
@@ -38,7 +38,7 @@ const PageJobs = ()=> {
 
     const handleCustomProfessionals = async ()=>{
         try{
-            const result = await getUsers(page, {...filters, category: categorySelected});
+            const result = await getProfessionals(page, {...filters, category: categorySelected});
             setCustomProfessionals(result);
         }catch(err){
             console.log(err)
@@ -46,7 +46,7 @@ const PageJobs = ()=> {
     }
 
     if(!customProfessionals || userContextLoading) return <LoadingComponent/>
-
+console.log(customProfessionals, avatars)
     return(
         <JobsContainer>
             <JobsCategoryIndicator selection={categorySelected}>
@@ -155,7 +155,7 @@ const PageJobs = ()=> {
             <JobsOffersBox>
                 {customProfessionals.map(user=>{
                     var userAvatar = "";
-                    avatars.map(img=>img.user_id == user.id && img.role == "avatar" ? userAvatar = img.name : null)
+                    if(avatars) avatars.map(img=>img.user_id == user.id && img.role == "avatar" ? userAvatar = img.name : null)
                     
                     return (
                         <Link to={userLoged ? `/profile/${user.id}` : "#"} onClick={event=> userLoged ? null : alert("você precisa estar logado para acessar os perfís")} >
@@ -165,7 +165,7 @@ const PageJobs = ()=> {
                             <ContentText>
                                 <TitleH3 className="content-text__title">Está procurando uma profissional de {categories.filter(item=> item.name === user.category)[0]?.label}?</TitleH3>
                                 
-                                <BodyText className="content__desc">{user.about.substring(0, 90)}...</BodyText>
+                                <BodyText className="content__desc">{user.about?.substring(0, 90)}...</BodyText>
 
                                 <div className="content__button">
                                     <ButtonComponent small={true}>ENVIE MENSAGEM PARA {user.name.split(" ")[0].toUpperCase()}</ButtonComponent>
