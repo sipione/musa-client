@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 import { useEffect, useState } from "react"
 import { BodyText, TitleH2 } from "../../common/foundation/typography";
 import LoadingComponent from "../loading";
@@ -6,7 +7,6 @@ import { PoupupImageContainer } from "./style"
 
 const PoupupImageComponent = (props)=>{
     const {active, mainImage, arrayOfImages} = props.poupupProps;
-    const {setPoupupProps} = props.setPoupupProps;
     const [loading, setLoading] =useState(false);
     const [open, setOpen] = useState(false);
     const [currentImage, setCurrentImage] = useState(mainImage);
@@ -26,7 +26,6 @@ const PoupupImageComponent = (props)=>{
 
         if(!next && index == 0) return setCurrentImage(arrayOfImages[arrayOfImages.length-1])
 
-        console.log("passou de todos os ifs", arrayOfImages.length-1, index)
         next ? setCurrentImage(arrayOfImages[index+1]):setCurrentImage(arrayOfImages[index-1])
     }
 
@@ -40,7 +39,7 @@ const PoupupImageComponent = (props)=>{
             })}>X</TitleH2>
             <TitleH2 className="back" onClick={changeImage}>{"<<"}</TitleH2>
             <div className="poupup__content">
-                <img className="image" src={currentImage.name}/>
+                <img className="image" alt={currentImage.alt} src={currentImage.name}/>
                 <BodyText>{currentImage.description}</BodyText>
                 <BodyText>{currentImage.price ? `R$ ${currentImage.price},00` : ""}</BodyText>
             </div>

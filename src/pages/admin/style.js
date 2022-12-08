@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { darkColorHex, darkColorRgba, lightColorHex, primaryColorHex, secondaryColorHex } from "../../common/foundation/variables";
+import { darkColorRgba, lightColorHex, primaryColorHex, secondaryColorHex } from "../../common/foundation/variables";
 
 
 export const AdminContainer = styled.section`
@@ -7,6 +7,20 @@ export const AdminContainer = styled.section`
     padding: 5vh 2.5vw;
     display: flex;
     flex-direction: column;
+
+    .title{
+        text-align: center;
+    }
+    `;
+
+export const AdminStatics = styled.div`
+    display: flex;
+    justify-content: space-between;
+    padding: 2.5vh 5vw;
+    border: 2px solid ${primaryColorHex};
+    color: ${secondaryColorHex};
+    border-radius: 5px 5px 0 0;
+
 `;
 
 export const FormContainer = styled.form`
@@ -15,7 +29,8 @@ export const FormContainer = styled.form`
     align-items: center;
     background: ${primaryColorHex};
     padding: 1vh 1vw;
-    border-radius: 5px;
+    border-radius: 0 0  5px 5px;
+    margin-bottom: 5vh;
 
     .user-searcher{
         height: 100%;
@@ -115,4 +130,31 @@ export const FormUserSelector = styled.div`
         }
     }
 
+`;
+
+export const DataContainer = styled.section`
+    display: flex;
+    flex-direction: column;
+    margin-top: 2.5vh;
+`;
+
+export const DataContent = styled.div`
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: ${primaryColorHex};
+    border-radius: 5px;
+    color: ${secondaryColorHex};
+    padding: 2.5vh 5vw;
+    margin: 2.5vh 0;
+
+    .block, .unblock{
+        transition: 500ms;
+        cursor: pointer;
+
+        :hover{
+            transform: scale(1.25);
+        }
+    }
 `;

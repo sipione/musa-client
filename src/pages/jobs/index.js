@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable eqeqeq */
 import { useContext, useEffect, useState } from "react";
 import { ContentText, JobsCategoryIndicator, JobsContainer, JobsFilterBox, JobsOffersBox, OfferBoxContent } from "./style"
 import { BodyText, TitleH3 } from "../../common/foundation/typography";
@@ -46,7 +48,7 @@ const PageJobs = ()=> {
     }
 
     if(!customProfessionals || userContextLoading) return <LoadingComponent/>
-console.log(customProfessionals, avatars)
+
     return(
         <JobsContainer>
             <JobsCategoryIndicator selection={categorySelected}>
@@ -120,12 +122,12 @@ console.log(customProfessionals, avatars)
                             <option value="">Cidade</option>
                             {
                                 filters.state
-                                ? locations.map(location=>{
+                                ? locations.map(location => {
                                     if(location.state == filters.state){
                                         return(
-                                        <option value={location.city}>
-                                            {location.city}
-                                        </option>
+                                            <option value={location.city}>
+                                                {location.city}
+                                            </option>
                                         )
                                     }
                                     })

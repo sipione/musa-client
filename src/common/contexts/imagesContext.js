@@ -1,4 +1,3 @@
-import { async } from "@firebase/util";
 import axios from "axios";
 import { createContext, useContext, useEffect, useState } from "react";
 import { UserContext } from "./userContext";
@@ -14,13 +13,13 @@ const ImageContextProvider = ({children})=>{
     useEffect(()=>{
 
         if(professionals.length > 0){
-            getAvatars()
+            getAvatars(professionals)
         }
 
     }, [professionals])
 
-    const getAvatars = async ()=>{
-        const usersId = professionals.map(item=> item.id);
+    const getAvatars = async (users)=>{
+        const usersId = users.map(item=> item.id);
         let array = [];
 
         try{
@@ -52,7 +51,7 @@ const ImageContextProvider = ({children})=>{
     }
 
     return(
-        <ImagesContext.Provider value={{avatars, getImagesById}}>
+        <ImagesContext.Provider value={{avatars, getImagesById, getAvatars}}>
             {children}
         </ImagesContext.Provider>
     )

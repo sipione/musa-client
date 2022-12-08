@@ -18,16 +18,20 @@ const UserContextPrivider = ({children})=>{
         getTotal()
         getLocation()
         setUserContextLoading(false)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    const getAllUsers = async(page=0, options, jwt) => {
+    const getAllUsers = async(page=0, options) => {
+        const { jwt, search, blocked} = options;
+
         try{
             const response =  await axios.request({
-                method: "get",
+                method: "post",
                 url: `${process.env.REACT_APP_BASE_URL}/users/all`,
                 headers:{
                     "authorization": jwt
-                }
+                },
+                data: {search, blocked}
             });
 
             return response.data
@@ -37,11 +41,24 @@ const UserContextPrivider = ({children})=>{
         }
     }
 
-    const getNotProfessionalUsers = ()=>{
+    const getNotProfessionalUsers = async (page = 0, options)=>{
+        const {search, jwt} = options;
+        const data ={
+            page,
+            search
+        }
         try{
-
-        }catch{
-
+            const response = await axios.request({
+                method: 'post',
+                url: `${process.env.REACT_APP_BASE_URL}/users/hirer`,
+                headers: {
+                    "authorization": jwt
+                },
+                data
+            });
+            return(response.data);
+        }catch(err){
+            console.log(err.response.data)
         }
     }
 
@@ -91,6 +108,35 @@ const UserContextPrivider = ({children})=>{
         }
 
     }
+    
+    const getTotal = async ()=>{
+        try{
+            const total = await axios.request({
+                method: "get",
+                url: `${process.env.REACT_APP_BASE_URL}/users/total`
+            })
+            setTotal(total.data);
+        }catch(err){
+            console.log(err.response.data)
+        }
+    }
+
+    const getTotalofUsers = async (blocked)=>{
+
+        try{
+            const total = await axios.request({
+                method: "post",
+                url: `${process.env.REACT_APP_BASE_URL}/users/all/total`,
+                data: {
+                    blocked
+                }
+            })
+
+            return total.data;
+        }catch(err){
+            console.log(err.response.data)
+        }
+    }
 
     const logUser = async () => {
         const logedData = window.sessionStorage.getItem("logedData");
@@ -102,17 +148,27 @@ const UserContextPrivider = ({children})=>{
         }
     }
 
-    const getTotal = async ()=>{
+    const blockUser = async(id, jwt, blocked)=>{
+
         try{
-            const total = await axios.request({
-                method: "get",
-                url: `${process.env.REACT_APP_BASE_URL}/users/total`
+            const response = await axios.request({
+                method: "put",
+                url: `${process.env.REACT_APP_BASE_URL}/block-user/${id}`,
+                headers: {
+                    "authorization": jwt
+                },
+                data: {
+                    blocked
+                }
             })
-            setTotal(total);
+
+            return response.data;
+
         }catch(err){
-            console.log(err.response.data)
+            console.log(err)
         }
     }
+
 
     const getLocation = async()=>{
 
@@ -121,7 +177,7 @@ const UserContextPrivider = ({children})=>{
                 method: "get",
                 url: `${process.env.REACT_APP_BASE_URL}/users/locations`
             });
-            const growthstates = response.data.map(item => item.state);
+            const growthstates = await response.data.map(item => item.state);
             const netStates = [...new Set(growthstates)];
 
             setStates(netStates);
@@ -143,7 +199,11 @@ const UserContextPrivider = ({children})=>{
             userLoged, 
             setUserLoged, 
             getProfessionals,
-            getAllUsers
+            getAllUsers,
+            getNotProfessionalUsers,
+            blockUser,
+            getTotalofUsers,
+            getTotal
         }}>
             {children}
         </UserContext.Provider>
