@@ -24,7 +24,6 @@ function App() {
       <HeaderComponent />
       <Routes>
         <Route path='/' element={<PageHome/>}/>
-        <Route path='/test' element={<PageTest/>}/>
         <Route path='/jobs' element={<PageJobs/>}/>
         <Route path='/login' element={<PageLogin/>}/>
         <Route path='/about' element={<AboutPage/>}/>

@@ -30,7 +30,7 @@ const HeaderComponent = ()=>{
         <HeaderContainer open={open}>
             <HeaderTitle>
                 <div className="comunidade">
-                    <a className="comunidade__link" href={userLoged ? "https://www.facebook.com/groups/musamulheressa" : "#/login"} target={userLoged ? "__blank" : "_self"}><ButtonComponent> <BodyLittleText>Participe da nossa COMUNIDADE</BodyLittleText></ButtonComponent></a>
+                    <a className="comunidade__link" href={userLoged ? "https://t.me/+erXenQho3wYyZDdh" : "#/login"} target={userLoged ? "__blank" : "_self"}><ButtonComponent> <BodyLittleText>Participe da nossa COMUNIDADE</BodyLittleText></ButtonComponent></a>
                 </div>
 
                 <Link to="/" className="logo"><Logo /></Link>
