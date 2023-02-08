@@ -13,7 +13,6 @@ import PageLogin from './pages/login';
 import PartnershipPage from './pages/partnership';
 import PageProfile from './pages/profile';
 import PageRegister from './pages/register';
-import PageTest from './pages/test';
 
 
 
