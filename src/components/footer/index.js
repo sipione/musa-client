@@ -24,7 +24,7 @@ const FooterComponent = ()=>{
                 <FlexBoxContentCenter bg={bgPeople}/>
 
                 <FlexBoxContentCenter bg={bgSocial}>
-                    <TitleH3 className="flex-box__title">Acesse nossa comunidade no facebook</TitleH3>
+                    <TitleH3 className="flex-box__title">Acesse nossa comunidade no Telegram</TitleH3>
 
                     <a href={userLoged ? "https://t.me/+erXenQho3wYyZDdh" : "#/login"} target={userLoged ? "__blank" : "_self"} className="flex-box__button"><TitleH3 className="button__title">CLIQUE AQUI</TitleH3></a>
                 </FlexBoxContentCenter>
