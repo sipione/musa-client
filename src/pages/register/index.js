@@ -133,13 +133,13 @@ console.log(inputs);
                     <ContainerInputRadioBox>
                         <div>
                             <input defaultChecked id="saller" type="radio" value="saller" name="role"/>
-                            <span>X</span>
-                            <label htmlFor="saller">Sou prestadora de serviço</label>
+                            <label className="custom-input" htmlFor="saller">X</label>
+                            <label htmlFor="saller">Sou Empreendedora</label>
                         </div>
 
                         <div>
                             <input id="buyer" type="radio" value="buyer" name="role"/>
-                            <span>X</span>
+                            <label className="custom-input" htmlFor="buyer">X</label>
                             <label htmlFor="buyer">Quero contratar serviço</label>
                         </div>
                     </ContainerInputRadioBox>

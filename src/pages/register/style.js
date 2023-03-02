@@ -100,7 +100,7 @@ export const ContainerInputRadioBox = styled.div`
         cursor: pointer;
     }
 
-    span{
+    .custom-input{
         text-align: center;
         color: ${lightColorHex};
         width: 25px;
@@ -114,7 +114,7 @@ export const ContainerInputRadioBox = styled.div`
         display: none;
     }
 
-    input:checked + span{
+    input:checked + .custom-input{
         background: ${secondaryColorHex};
     }
 `;
