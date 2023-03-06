@@ -7,7 +7,7 @@ export const CategoryContext =  createContext();
 const CategoryContextProvider = ({children})=>{
     const [categories, setCategories] = useState([])
     const [categorySelected, setCategorySelected]=useState(false)
-
+console.log(categorySelected)
     useEffect(()=>{
         getCategories()
     }, [])
@@ -21,7 +21,10 @@ const CategoryContextProvider = ({children})=>{
             };
             
             const response = await axios(config);
-            setCategories([...response.data]);
+
+            const reponseSorted = response.data.sort((a,b)=> a.label.localeCompare(b.label, 'pt-br', { sensitivity: 'base' }));
+
+            setCategories([...reponseSorted]);
         }catch(err){
             console.log(err)
         }

@@ -37,7 +37,7 @@ const PageHome = ()=> {
                         <Link
                         to="/jobs" 
                         className="category"
-                        onClick={()=>setCategorySelected(item)} 
+                        onClick={()=>setCategorySelected(item.name)} 
                         key={item.name}>
                             <img className="category__image" src={require("../../assets/images/"+item.img_name)} alt="category representation"/>
                             <BodyText className="category__title">{item.label}</BodyText>
