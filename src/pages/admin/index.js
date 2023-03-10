@@ -57,9 +57,13 @@ const PageAdmin = ()=>{
     
     useEffect(()=>{
         if(userLoged){
-            verifyUserRole()
+            console.log("passei")
+            verifyUserRole();
+        }else{
+            setLoading(false);
+            return navigate("/")
         }
-    }, [userLoged, verifyUserRole]);
+    }, [userLoged]);
 
     useEffect(()=>{
         getAllTotals()
@@ -75,8 +79,10 @@ const PageAdmin = ()=>{
     }
 
     async function verifyUserRole(){
-        const user = await getUserById(userLoged.id, userLoged.jwt);
-        if(user.role !== "admin") return navigate("/")
+        if(userLoged.role !== "admin"){
+            setLoading(false);
+            return navigate("/")
+        }
         setLoading(false);
     }
 

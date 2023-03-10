@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { darkColorHex, maxMobileScreeenWidth, maxTabletScreenWidth, primaryColorHex, secondaryColorHex } from "../../common/foundation/variables";
+import { darkColorHex, lightColorHex, maxMobileScreeenWidth, maxTabletScreenWidth, primaryColorHex, secondaryColorHex } from "../../common/foundation/variables";
 
 
 export const HeaderContainer = styled.header`
@@ -15,7 +15,7 @@ export const HeaderContainer = styled.header`
     @media screen and (max-width: ${maxMobileScreeenWidth}px){
         padding: 3vh 5vw;
         transition:0.5s;
-        min-height: ${props=>props.open ? "40vh" : "25vh"};
+        min-height: ${props=>props.open ? "50vh" : "25vh"};
         gap:2.5vh;
     }
 `;
@@ -49,6 +49,22 @@ export const HeaderTitle = styled.div`
         }
     }
 
+    .login-box{
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        .painel{
+            margin: 2vh 0;
+            background: ${secondaryColorHex};
+            text-align: center;
+            padding: 1vh 1.5vw;
+            border-radius: 5px;
+            p{
+                color: ${lightColorHex};
+            }
+        }
+    }
+
     svg, #facebook{
         width: auto;
         fill: ${secondaryColorHex};
@@ -66,7 +82,7 @@ export const HeaderTitle = styled.div`
         gap:1vh;
 
         div{
-            align-tems: start;
+            align-items: start;
         }
         
         .comunidade{
@@ -112,10 +128,10 @@ export const HeaderMobileNavegation = styled.div`
             flex-direction: column;
             gap: 1.5vh;
             overflow:hidden;
-            height:0vh;
+            transform:scaleY(0);
+            transform-origin: top;
             transition: 0.5s;
-            align-items:center;
-            text-align: center;
+            align-items:start;
 
             a{
                 background: ${primaryColorHex};
@@ -124,7 +140,7 @@ export const HeaderMobileNavegation = styled.div`
         }
 
         .open{
-            height: 25vh;
+            transform: scaleY(1);
         }
     }
 `;

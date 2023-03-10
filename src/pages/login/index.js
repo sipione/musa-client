@@ -49,11 +49,7 @@ const PageLogin = ()=> {
                 window.sessionStorage.setItem("accessToken", response.data.jwt);
                 window.sessionStorage.setItem("logedData", JSON.stringify(response.data));
                 
-                setUserLoged({
-                    id: response.data.id,
-                    name: response.data.name,
-                    jwt: response.data.jwt
-                })
+                setUserLoged({...response.data})
                 navigate(`/`)
             }
 

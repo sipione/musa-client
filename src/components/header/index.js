@@ -35,10 +35,11 @@ const HeaderComponent = ()=>{
 
                 <Link to="/" className="logo"><Logo /></Link>
 
-                <div>
+                <div className="login-box">
                     {userLoged.name
                     ? <TitleH3>Olá, {userLoged.name.split(" ")[0].toUpperCase()}</TitleH3>
                     : <Link to="login"><TitleH3 aria-label="logout" className="login">Login</TitleH3></Link>}
+                    {userLoged.role == "admin" && (<Link className="painel" to="/admin"><BodyText>Painel Admin</BodyText></Link>)}
                 </div>
                 
 
@@ -51,6 +52,7 @@ const HeaderComponent = ()=>{
                         {userLoged.name
                         ? <TitleH3>Olá, {userLoged.name.split(" ")[0].toUpperCase()}</TitleH3>
                         : <Link to="login"><TitleH3 aria-label="logout" className="login">Login</TitleH3></Link>}
+                        {userLoged.role == "admin" && (<Link className="painel" to="/admin"><TitleH3>Painel Admin</TitleH3></Link>)}
                     </div>
 
                     <Link className="box-bottom" to={userLoged ? `/profile/edit/${userLoged.id}` : "/register"}><TitleH3>Cadastrar serviços</TitleH3></Link>
