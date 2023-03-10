@@ -67,7 +67,7 @@ const PageAdmin = ()=>{
 
     useEffect(()=>{
         getAllTotals()
-    });
+    },[]);
 
     const getAllTotals = async ()=>{
         const totalUser = await getTotalofUsers(false);
@@ -93,7 +93,7 @@ const PageAdmin = ()=>{
     async function handleSubmit(){
 
         const objetctActions = {
-            workers: getProfessionals(0, {}),
+            workers: getProfessionals(0, {search: searchInput}),
 
             all: getAllUsers(0, {jwt: userLoged.jwt, search: searchInput, blocked: false}),
 
