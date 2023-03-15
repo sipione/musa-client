@@ -91,7 +91,8 @@ const UserContextPrivider = ({children})=>{
             category: options.category ? options.category : false,
             mother: options.mother ? true : false,
             state: options.state ? options.state : false,
-            city: options.city ? options.city : false
+            city: options.city ? options.city : false,
+            search: options.search? options.search : false
         };
 
 
