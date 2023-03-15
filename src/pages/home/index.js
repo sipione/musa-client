@@ -67,7 +67,7 @@ const PageHome = ()=> {
             <span className='single-separator'/>
 
             <HomeCarrousselContainer>
-                {professionals.map(item=>{
+                {professionals?.map(item=>{
 
                     return (
                         <Link onClick={()=> userLoged ? null:alert("você precisa logar para vizualizar o perfil")} to={userLoged ? `/profile/${item.id}`: "#"}>
