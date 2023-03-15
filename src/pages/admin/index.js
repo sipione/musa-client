@@ -120,7 +120,7 @@ const PageAdmin = ()=>{
         setUsersGetted(()=>null)
 
         const objetctActions = {
-            workers: getProfessionals(0, {search: searchInput}),
+            workers: getAllUsers(0, {search: searchInput}),
 
             all: ()=>(allUsers.filter(user=>user.blocked == false)),
 
