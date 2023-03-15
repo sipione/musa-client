@@ -1,21 +1,23 @@
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../common/contexts/userContext";
-import { BodyText, TitleH2 } from "../../common/foundation/typography";
+import { BodyLittleText, BodyText, TitleH2 } from "../../common/foundation/typography";
 import ButtonComponent from "../../components/button";
 import LoadingComponent from "../../components/loading";
 import { AdminContainer, AdminStatics, DataContainer, DataContent, FormContainer, FormUserSelector } from "./style";
 import {ReactComponent as Block} from "../../assets/images/block.svg";
 import {ReactComponent as Unblock} from "../../assets/images/unblock.svg";
+import { CategoryContext } from "../../common/contexts/categoryContext";
+import axios from "axios";
 
 const userTypes = [
     {
-        name: "Todos os usuários",
+        name: "Usuário ativos",
         id: "all",
         value: ""
     },
     {
-        name: "Prestadoras de serviço",
+        name: "Empreendedoras",
         id: "workers",
         value: ""
     },
@@ -31,19 +33,13 @@ const userTypes = [
     }
 ];
 
-
 const PageAdmin = ()=>{
     const {
         userLoged, 
-        getUserById, 
-        getProfessionals, 
-        getAllUsers,
-        getNotProfessionalUsers,
         blockUser,
-        getTotalofUsers,
-        total,
-        getTotal
+        getAllUsers
     } = useContext(UserContext)
+    const {categories} = useContext(CategoryContext);
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
     const [open, setOpen] = useState({
@@ -54,28 +50,58 @@ const PageAdmin = ()=>{
     const [ usersGetted, setUsersGetted ] = useState(null);
     const [ totalOfUsers, setTotalOfUsers] = useState();
     const [ totalOfBlockedUser, setTotalOfBlockedUser] = useState();
-    
+    const [ totalOfProfessional, setTotalOfProfessional] = useState();
+    const [ totalByCategory, setTotalByCategory] = useState();
+    const [ totalOfMothers, setTotalOfMothers] = useState();
+    const [ allUsers, setAllUsers] = useState();
+
     useEffect(()=>{
         if(userLoged){
-            console.log("passei")
             verifyUserRole();
-        }else{
-            setLoading(false);
-            return navigate("/")
+            getAllTotals()
         }
     }, [userLoged]);
+    
+    const downloadFile = async () => {
+        setLoading(true)
+        const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/users/csv`);
+        const url = window.URL.createObjectURL(new Blob([response.data])) 
+        const link = document.createElement('a')
+        link.href = url
+        link.setAttribute('download', "todos_usuarios.csv")
+        document.body.appendChild(link)
+        link.click()
+        link.remove()
+        setLoading(false)
+    }
 
-    useEffect(()=>{
-        getAllTotals()
-    },[]);
+    const getAllTotals = async (blocked = false)=>{
+        //getTotalOfProfessionals();
+        //const totalUser = await getTotalofUsers(false);
+        setLoading(true)
+        
+        const allUsersResponse = await getAllUsers({jwt:userLoged.jwt});
 
-    const getAllTotals = async ()=>{
-        const totalUser = await getTotalofUsers(false);
-        const totalBlock = await getTotalofUsers(true);
-        getTotal();
+        setAllUsers(()=>allUsersResponse)
+        setTotalOfProfessional(allUsersResponse.filter(user=>user.category !== null).length)
+        setTotalOfBlockedUser(allUsersResponse.filter(user=>user.blocked).length)
+        setTotalOfMothers(allUsersResponse.filter(user=>user.mother).length)
+        setTotalOfUsers(allUsersResponse.length)
+        setTotalByCategory(await getTotalByCategory(allUsersResponse))
+        setLoading(false)
+    }
 
-        setTotalOfBlockedUser(totalBlock)
-        setTotalOfUsers(totalUser)
+    async function getTotalByCategory(allUsers){
+        let categoriesObject = {};
+
+        categories.forEach(category=>{
+            categoriesObject ={
+                ...categoriesObject,
+                [category.label]: allUsers.filter(user=>user.category == category.name).length
+            }
+        })
+
+        return categoriesObject;
     }
 
     async function verifyUserRole(){
@@ -91,29 +117,21 @@ const PageAdmin = ()=>{
     }
 
     async function handleSubmit(){
+        setUsersGetted(()=>null)
 
         const objetctActions = {
-            workers: getProfessionals(0, {search: searchInput}),
+            workers: ()=>(allUsers.filter(user=>user.category !== null)),
 
-            all: getAllUsers(0, {jwt: userLoged.jwt, search: searchInput, blocked: false}),
+            all: ()=>(allUsers.filter(user=>user.blocked == false)),
 
-            hirer: getNotProfessionalUsers(0, {jwt: userLoged.jwt, search: searchInput}),
+            hirer: ()=>allUsers.filter(user=>user.category == null),
 
-            blocked: getAllUsers(0, {jwt: userLoged.jwt, search: searchInput, blocked: true})
+            blocked: ()=>allUsers.filter(user=>user.blocked)
         };
 
-        setLoading(true)
+        const users = objetctActions[typeSelected?.id]() || objetctActions.all(); 
 
-        try{
-            const users = await objetctActions[typeSelected?.id] || await objetctActions.all; 
-
-            setUsersGetted(users)
-        }catch(err){
-            alert(err)
-            console.log(err)
-        }
-
-        setLoading(false)
+        setUsersGetted(()=>users)
     }
 
     async function handleBlock(id, blocked){
@@ -122,13 +140,10 @@ const PageAdmin = ()=>{
             if (window.confirm(`Você tem certeza que deseja ${blocked ? "bloquear" : "desbloquear"} o usuário de id ${id}?`) === false) return
 
             const response = await blockUser(id, userLoged.jwt, blocked)
-
+            
             alert(response)
-            
-            
-            await handleSubmit();
-            
-            await getAllTotals()
+
+            window.location.reload();
         }catch(err){
             alert(err)
             console.log(err)
@@ -137,16 +152,53 @@ const PageAdmin = ()=>{
         
     }
 
-    if(loading) return <LoadingComponent/>
+    if(loading || !userLoged || !allUsers) return <LoadingComponent/>
 
     return(
         <AdminContainer>
+            <div onClick={downloadFile} className="dowload">
+                <ButtonComponent> <BodyLittleText>Download CSV File</BodyLittleText></ButtonComponent>
+            </div>
             <TitleH2 className="title">Painel administrativo</TitleH2>
 
-            <AdminStatics>
-                <BodyText>Total Usuários: {totalOfUsers || 0}</BodyText>
-                <BodyText>Total de prestadoras de serviço: {total || 0} </BodyText>
-                <BodyText>Total Usuários bloqueados: {totalOfBlockedUser || 0}</BodyText>
+            <AdminStatics open={open.totalCategories}>
+                <div className="stats__element">
+                    <BodyText>Usuários Ativos: {totalOfUsers || 0}</BodyText>
+                </div>
+                <div className="stats__element">
+                    <BodyText>Empreendedoras: {totalOfProfessional || 0} </BodyText>
+                </div>
+                <div className="stats__element">
+                    <BodyText>Clientes: { totalOfUsers - totalOfProfessional || 0} </BodyText>
+                </div>
+                <div className="stats__element">
+                    <BodyText>Mães: {totalOfMothers || 0} </BodyText>
+                </div>
+                <div className="stats__element">
+                    <BodyText>Usuários bloqueados: {totalOfBlockedUser || 0}</BodyText>
+                </div>
+
+                <div 
+                    className="total--category stats__element"
+                    onMouseEnter={()=>setOpen({...open, totalCategories: true})} 
+                    onMouseLeave={()=>setOpen({...open, totalCategories: false})}
+                >
+                    <BodyText>Por categoria</BodyText>
+
+                    <BodyText className="arrow">V</BodyText>
+
+                    <ul className="category__dropdown">
+                        {Object.entries(totalByCategory).sort((a,b)=> b[1] - a[1]).map(categoryArray=>{
+                            if(categoryArray[1]>0){
+                                return(
+                                    <li className="dropdown__item" key={categoryArray[0]}>
+                                        <BodyText>{categoryArray[0]}: {categoryArray[1]}</BodyText>
+                                    </li>
+                                )
+                            }
+                        })}
+                    </ul>
+                </div>
             </AdminStatics>
             <FormContainer onSubmit={handleSubmit}>
                 <FormUserSelector 
@@ -193,21 +245,30 @@ const PageAdmin = ()=>{
             </FormContainer>
 
             <DataContainer>
-                {
-                    usersGetted?.map((key)=>(
-                        <DataContent>
-                            <BodyText>{key.id}</BodyText>
-                            <BodyText>{key.name}</BodyText>
-                            <BodyText>{key.email}</BodyText>
+                {usersGetted?.map((user)=>(
+                    <DataContent blocked={user.blocked}>
+                        <div className="title-box">
+                            <BodyText>{user.name}</BodyText>
+                            <BodyText className="title__cat">{user?.category || null}</BodyText>
+                            <BodyText>{user.email}</BodyText>
                             {
-                                key.blocked
-                                ?(<Unblock className="unblock" onClick={()=>handleBlock(key.id, false)}/>)
-                                :(<Block className="block" onClick={()=>handleBlock(key.id, true)} />)
+                                user.blocked
+                                ?(<Unblock className="unblock" onClick={()=>handleBlock(user.id, false)}/>)
+                                :(<Block className="block" onClick={()=>handleBlock(user.id, true)} />)
                             }
-                            
-                        </DataContent>
-                    ))
-                }
+                        </div>
+                        
+                        <div className="body-box">
+                            <BodyText> <span>Serviços:</span> {user?.profession || "sem dados"}</BodyText>
+                            <BodyText> <span>Mãe:</span> {user?.mother ? "sim" : "Não"}</BodyText>
+                            <BodyText> <span>Telefone:</span> {user?.phone || "sem dados"}</BodyText>
+                            <BodyText> <span>Região:</span> {user?.city ? `${user?.city}/${user?.state}` : "sem dados"}</BodyText>
+                            <BodyText> <span>CEP:</span> {user?.zipcode || "sem dados"}</BodyText>
+                            <BodyText> <span>Criado em:</span> {new Date(user?.createdAt).toLocaleString("pt-br") || "sem dados"}</BodyText>
+                            <BodyText> <span>Id:</span> {user?.id || "sem dados"}</BodyText>
+                        </div>
+                    </DataContent>
+                ))}
             </DataContainer>
         </AdminContainer>
     )

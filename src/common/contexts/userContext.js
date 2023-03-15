@@ -15,14 +15,13 @@ const UserContextPrivider = ({children})=>{
         setUserContextLoading(true)
         seedProfessionals()
         logUser()
-        getTotal()
+        getTotalOfProfessionals()
         getLocation()
         setUserContextLoading(false)
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    const getAllUsers = async(page=0, options) => {
-        const { jwt, search, blocked} = options;
+    const getAllUsers = async({ jwt, search, blocked}, page=0) => {
 
         try{
             const response =  await axios.request({
@@ -110,7 +109,7 @@ const UserContextPrivider = ({children})=>{
 
     }
     
-    const getTotal = async ()=>{
+    const getTotalOfProfessionals = async ()=>{
         try{
             const total = await axios.request({
                 method: "get",
@@ -170,7 +169,6 @@ const UserContextPrivider = ({children})=>{
         }
     }
 
-
     const getLocation = async()=>{
 
         try{
@@ -204,7 +202,7 @@ const UserContextPrivider = ({children})=>{
             getNotProfessionalUsers,
             blockUser,
             getTotalofUsers,
-            getTotal
+            getTotalOfProfessionals
         }}>
             {children}
         </UserContext.Provider>
