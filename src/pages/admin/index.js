@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../common/contexts/userContext";
 import { BodyLittleText, BodyText, TitleH2 } from "../../common/foundation/typography";
@@ -48,19 +48,34 @@ const PageAdmin = ()=>{
     const [ typeSelected, setTypeSelected ] = useState(null);
     const [ searchInput, setSearchInput ] = useState(null);
     const [ usersGetted, setUsersGetted ] = useState(null);
-    const [ totalOfUsers, setTotalOfUsers] = useState();
-    const [ totalOfBlockedUser, setTotalOfBlockedUser] = useState();
-    const [ totalOfProfessional, setTotalOfProfessional] = useState();
-    const [ totalByCategory, setTotalByCategory] = useState();
-    const [ totalOfMothers, setTotalOfMothers] = useState();
-    const [ allUsers, setAllUsers] = useState();
+    const [ totalOfUsers, setTotalOfUsers] = useState(null);
+    const [ totalOfBlockedUser, setTotalOfBlockedUser] = useState(null);
+    const [ totalOfProfessional, setTotalOfProfessional] = useState(null);
+    const [ totalByCategory, setTotalByCategory] = useState(null);
+    const [ totalOfMothers, setTotalOfMothers] = useState(null);
+    const [ allUsers, setAllUsers] = useState(null);
 
-    useEffect(()=>{
-        if(userLoged){
+    const totalByCategoryMemo = useMemo(() => {
+        if (categories && allUsers) {
+            const categoriesObject = {};
+            categories.forEach((category) => {
+                categoriesObject[category.label] = allUsers.filter((user) => user.category == category.name).length;
+            });
+            return categoriesObject;
+        }
+        return null;
+    }, [categories, allUsers]);
+
+    useEffect(() => {
+        if (userLoged) {
             verifyUserRole();
-            getAllTotals()
+            getAllTotals();
         }
     }, [userLoged]);
+
+    useEffect(() => {
+        setTotalByCategory(totalByCategoryMemo);
+    }, [totalByCategoryMemo]);
     
     const downloadFile = async () => {
         setLoading(true)
@@ -87,13 +102,11 @@ const PageAdmin = ()=>{
         setTotalOfBlockedUser(allUsersResponse.filter(user=>user.blocked).length)
         setTotalOfMothers(allUsersResponse.filter(user=>user.mother).length)
         setTotalOfUsers(allUsersResponse.length)
-        setTotalByCategory(await getTotalByCategory(allUsersResponse))
         setLoading(false)
     }
 
     async function getTotalByCategory(allUsers){
         let categoriesObject = {};
-
         categories.forEach(category=>{
             categoriesObject ={
                 ...categoriesObject,
@@ -101,7 +114,7 @@ const PageAdmin = ()=>{
             }
         })
 
-        return categoriesObject;
+        setTotalByCategory(categoriesObject);
     }
 
     async function verifyUserRole(){
@@ -116,11 +129,13 @@ const PageAdmin = ()=>{
         setTypeSelected(selection)
     }
 
-    async function handleSubmit(){
-        setUsersGetted(()=>null)
+    async function handleSubmit(event){
+        event.preventDefault();
+
+        let users;
 
         const objetctActions = {
-            workers: getAllUsers(0, {search: searchInput}),
+            workers: ()=>allUsers.filter(user=>user.category !== null),
 
             all: ()=>(allUsers.filter(user=>user.blocked == false)),
 
@@ -129,7 +144,12 @@ const PageAdmin = ()=>{
             blocked: ()=>allUsers.filter(user=>user.blocked)
         };
 
-        const users = objetctActions[typeSelected?.id]() || objetctActions.all(); 
+        users = typeSelected?.id ? objetctActions[typeSelected?.id]() : objetctActions.all();
+
+        if(searchInput){
+            const regex = new RegExp(searchInput, "gmi")
+            users = users.filter(user=> user.name.match(regex))
+        };
 
         setUsersGetted(()=>users)
     }
@@ -188,7 +208,7 @@ const PageAdmin = ()=>{
                     <BodyText className="arrow">V</BodyText>
 
                     <ul className="category__dropdown">
-                        {Object.entries(totalByCategory).sort((a,b)=> b[1] - a[1]).map(categoryArray=>{
+                        {totalByCategory && Object.entries(totalByCategory).sort((a,b)=> b[1] - a[1]).map(categoryArray=>{
                             if(categoryArray[1]>0){
                                 return(
                                     <li className="dropdown__item" key={categoryArray[0]}>
